@@ -1,0 +1,11 @@
+<h2>Please Select Course List</h2>
+<form id="uploadForm" name="uploadForm">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="form-group">
+				<input name="file" type="file" class="form-control" ngf-select ng-model="file" ngf-max-size="5MB" required/>
+				<button ng-disabled="!uploadForm.$valid" class="btn btn-primary" ng-click="upload(file)">Upload</button>
+			</div>
+		</div>	
+	</div>
+</form>

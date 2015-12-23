@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ContactsApp">
+<head>
+    <title> Contacts </title>
+    <meta charset="utf-8"/>
+    <base href="/">
+    <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+    <link href="src/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1> Contacts </h1>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12" ng-view>
+            </div>
+        </div>
+    </div>
+    
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="lib/angular/angular.min.js"></script>
+    <script src="lib/angular-route/angular-route.min.js"></script>
+    <script src="lib/angular-resource/angular-resource.min.js"></script>
+    <script src="lib/angular-messages/angular-messages.min.js"></script>
+
+    <script src="lib/ng-file-upload/ng-file-upload-shim.js"></script>
+    <script src="lib/ng-file-upload/ng-file-upload.js"></script>
+
+    <script src="src/app.js"></script>
+    <script src="src/controllers.js"></script>
+    <script src="src/factory.js"></script>
+    <script src="src/filter.js"></script>
+    <script src="src/directive.js"></script>
+</body>
+</html>
