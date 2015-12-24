@@ -1,5 +1,5 @@
 angular.module('ContactsApp', ['ngRoute', 'ngResource', 'ngMessages', 'ngFileUpload'])
-    .config(function($routeProvider, $locationProvider) {
+    .config(function ($routeProvider, $locationProvider) {
         $routeProvider
             .when('/contacts', {
                 controller: 'ListController',

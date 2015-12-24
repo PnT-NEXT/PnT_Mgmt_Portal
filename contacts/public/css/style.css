@@ -1,0 +1,508 @@
+﻿
+body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    line-height: 1
+}
+
+*, body * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.content {
+    min-height: 600px;
+}
+
+body html, body div, body span, body applet, body object, body iframe, body h1, body h2, body h3, body h4, body h5, body h6, body p, body blockquote, body pre, body a, body abbr, body acronym, body address, body big, body cite, body code, body del, body dfn, body em, body img, body ins, body kbd, body q, body s, body samp, body small, body strike, body strong, body b, body u, body i, body center, body dl, body dt, body dd, body ol, body ul, body li, body fieldset, body label, body legend, body table, body caption, body tbody, body tfoot, body thead, body tr, body th, body td, body article, body aside, body canvas, body details, body embed, body figure, body figcaption, body footer, body header, body menu, body nav, body output, body ruby, body section, body summary, body time, body mark, body audio, body video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline
+}
+
+body article, body aside, body details, body figcaption, body figure, body footer, body header, body menu, body nav, body section {
+    display: block
+}
+
+body ol, body ul {
+    list-style: none
+}
+
+body button:hover {
+    cursor: pointer
+}
+
+body .footer .bottom .social span {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px
+}
+
+html {
+    height: 100%
+}
+
+body .header {
+    background: #6bbe98;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 20;
+    padding: 20px 0;
+    -webkit-transition: all 350ms ease;
+    -moz-transition: all 350ms ease;
+
+}
+
+/*@media screen and (min-width: 37.5em) {
+    body .header {
+        padding: 40px 0
+    }
+}*/
+
+body .header .logo {
+    float: left
+}
+
+body .header .logo p {
+    padding: 0;
+    color: #fff;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: bold;
+}
+
+body .header .logo img {
+    display: block
+}
+
+body .header nav {
+    display: none
+}
+
+@media screen and (min-width: 57.5em) {
+    body .header nav {
+        display: block;
+        float: right
+    }
+}
+
+body .header li {
+    display: inline-block
+}
+
+@media screen and (min-width: 57.5em) {
+    body .header li {
+        margin: 6px 0 0 16px
+    }
+}
+
+body .header li a {
+    font-size: 13px;
+    color: #fff;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    margin-top: -4px;
+}
+
+body .header li a:not(.btn):hover {
+    opacity: 0.85
+}
+
+body .header li a:active {
+    position: relative;
+    top: 2px
+}
+
+body .header li a.btn {
+    margin-left: 0px
+}
+
+body .header .toggle {
+    color: #fff;
+    float: right;
+    /*font-size: 32px;*/
+    border: 0
+}
+
+@media screen and (min-width: 57.5em) {
+    body .header .toggle {
+        display: none
+    }
+}
+
+body {
+    background: #fff;
+    font-family: "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    color: #565a5f
+}
+
+body a, body .header a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+}
+
+body .b {
+    font-weight: 700
+}
+
+body .i {
+    font-style: italic
+}
+
+body .wrapper {
+    position: relative;
+    width: 100%;
+}
+
+body .container {
+    position: relative;
+    width: 88%;
+    max-width: 960px;
+    margin: 0 auto
+}
+
+body .wrapper .content {
+    margin: 100px auto 20px auto;
+}
+
+body .footer {
+    color: #fff;
+    background: #6bbe98;
+    z-index: 10
+}
+
+@media screen and (min-width: 57.5em) {
+    body .footer {
+        position: relative
+    }
+}
+
+body .footer h1 {
+    margin-bottom: 1em;
+    font-size: 24px
+}
+
+@media screen and (min-width: 57.5em) {
+    body .footer h1 {
+        font-size: 38px;
+        margin-bottom: 50px
+    }
+}
+
+body .footer li {
+    display: inline-block
+}
+
+body .footer.border {
+    border-bottom: 2px solid #4f8c70
+}
+
+body .footer .top {
+    text-align: center;
+    padding: 40px 0 110px;
+    position: relative
+}
+
+body .footer .top .flag {
+    position: absolute;
+    display: none;
+    left: 50%;
+    margin-left: 1px;
+    bottom: 140px
+}
+
+@media screen and (min-width: 57.5em) {
+    body .footer .top .flag {
+        display: block
+    }
+}
+
+body .footer .top .btn {
+    margin: 0 5px
+}
+
+@media screen and (min-width: 57.5em) {
+    body .footer .top .btn {
+        margin: 0 25px;
+        width: 220px
+    }
+}
+
+body .footer .bottom {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: rgba(39, 41, 43, 0.97);
+    padding: 20px 0 20px;
+    z-index: 31;
+    display: none
+}
+
+@media screen and (min-width: 57.5em) {
+    body .footer .bottom {
+        position: relative;
+        background: #4f8c70;
+        display: block;
+        text-transform: uppercase;
+    }
+}
+
+body .footer .bottom .close-nav {
+    font-size: 24px;
+    color: #434a4d;
+    margin: 10px;
+    float: right
+}
+
+@media screen and (min-width: 57.5em) {
+    body .footer .bottom .close-nav {
+        display: none
+    }
+}
+
+body .footer .bottom .logo {
+    float: left
+}
+
+body .footer .bottom .logo a {
+    padding: 0
+}
+
+body .footer .bottom .logo img {
+    width: 160px;
+    opacity: .2;
+    position: aboslute
+}
+
+@media screen and (min-width: 57.5em) {
+    body .footer .bottom .logo {
+        display: none
+    }
+}
+
+@media screen and (min-width: 57.5em) {
+    body .footer .bottom nav {
+        display: block;
+        float: left;
+        font-size: 13px
+    }
+
+    body .footer .bottom nav .m-only {
+        display: none
+    }
+}
+
+body .footer .bottom nav ul {
+    margin: 20px 0;
+    border-bottom: 2px solid #434a4d
+}
+
+@media screen and (min-width: 57.5em) {
+    body .footer .bottom nav ul {
+        border: 0;
+        margin: 0
+    }
+}
+
+body .footer .bottom nav li {
+    width: 100%;
+    border-top: 2px solid #434a4d
+}
+
+@media screen and (min-width: 57.5em) {
+    body .footer .bottom nav li {
+        margin: 0 20px 0 0;
+        border: 0;
+        width: auto
+    }
+}
+
+body .footer .bottom nav .btn {
+    margin-top: 20px
+}
+
+body .footer .bottom nav a {
+    display: block;
+    padding: 12px 0;
+    font-weight: 600
+}
+
+body .footer .bottom nav a:hover {
+    opacity: 0.8
+}
+
+body .footer .bottom nav a:active {
+    position: relative;
+    top: 2px
+}
+
+body .footer .bottom .copy {
+    float: right;
+    clear: left;
+    color: #6BBE98;
+    font-size: 12px;
+    text-transform: none
+}
+
+@media screen and (min-width: 57.5em) {
+    body .footer .bottom .social {
+        position: absolute;
+        top: 12px;
+        right: 0
+    }
+}
+
+body .footer .bottom .social li {
+    margin-left: 10px
+}
+
+body .footer .bottom .social .btn {
+    font-size: 18px;
+    width: 38px
+}
+
+body .footer a {
+    text-decoration: none;
+    color: #fff;
+}
+
+body .btn {
+    font-size: 13px;
+    display: inline-block;
+    padding: 6px 10px;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    text-align: center;
+    color: #fff;
+    line-height: 1em !important;
+    -webkit-transition: all 250ms ease;
+    -moz-transition: all 250ms ease;
+    transition: all 250ms ease
+}
+
+body .btn:hover {
+    cursor: pointer;
+    background: #fff;
+    color: #6bbe98
+}
+
+body .btn.lg {
+    padding: 14px 14px;
+    font-size: 14px
+}
+
+@media screen and (min-width: 48em) {
+    body .btn.lg {
+        padding: 16px;
+        font-size: 18px
+    }
+}
+
+body .btn.green {
+    color: #6bbe98;
+    border-color: #6bbe98
+}
+
+body .btn.green:hover {
+    color: #4f8c70;
+    border-color: #4f8c70
+}
+
+body .btn.grey {
+    color: #cbcfcf;
+    border-color: #cbcfcf
+}
+
+body .btn.grey:hover {
+    color: #b0b7b7;
+    border-color: #b0b7b7
+}
+
+body .btn.solid-green {
+    background: #6bbe98;
+    border-color: #6bbe98
+}
+
+body .btn.solid-green:hover {
+    background: #4f8c70;
+    border-color: #4f8c70
+}
+
+body .btn.solid-blue {
+    background: #3b5998;
+    border-color: #3b5998
+}
+
+body .btn.solid-blue:hover {
+    background: #2d4373;
+    border-color: #2d4373
+}
+
+body .btn.dull {
+    color: #434a4d;
+    border-color: #434a4d
+}
+
+body .btn.dull:hover {
+    color: #fff;
+    border-color: #434a4d;
+    background: #434a4d
+}
+
+body input, body select, body button, body textarea {
+    font-family: "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif
+}
+
+body .input {
+    padding-top: 2em;
+    margin-bottom: 20px;
+    position: relative
+}
+
+body .input label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #434a4d;
+    font-weight: 500;
+    -webkit-transition: all 250ms ease;
+    -moz-transition: all 250ms ease;
+    transition: all 250ms ease
+}
+
+body .input input, body .input textarea {
+    border-color: #434a4d;
+    -webkit-transition: all 250ms ease;
+    -moz-transition: all 250ms ease;
+    transition: all 250ms ease
+}
+
+body .input input:focus, body .input textarea:focus {
+    border-color: #fff
+}
+
+body .input input:focus + label, body .input input:focus + i, body .input input:focus + label + i, body .input textarea:focus + label, body .input textarea:focus + i, body .input textarea:focus + label + i {
+    color: #fff
+}
+
+iframe, object, embed {
+    max-width: 100%
+}

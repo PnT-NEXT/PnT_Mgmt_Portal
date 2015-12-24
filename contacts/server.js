@@ -14,7 +14,7 @@ var express = require('express'),
 		dest: './uploads/',
 		storage: storage
 	}),
-	uploadRouter = require('./uploadRouter');
+	uploadRouter = require('./routes/uploadRouter');
 
 app
 	.use(express.static('public'))
