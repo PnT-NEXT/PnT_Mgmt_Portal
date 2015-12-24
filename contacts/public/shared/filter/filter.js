@@ -1,4 +1,4 @@
-angular.module('ContactsApp')
+angular.module('PnT_Portal')
     .filter('labelCase', function () {
         return function (input) {
             input = input.replace(/([A-Z])/g, ' $1');

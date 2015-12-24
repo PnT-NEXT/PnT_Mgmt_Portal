@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="ContactsApp">
+<html lang="en" ng-app="PnT_Portal">
 <head>
     <title> Contacts </title>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
-    <link href="css/style.css" rel="stylesheet"/>
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="assets/css/style.css" rel="stylesheet"/>
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
 
 <div class="wrapper">
     <!-- header -->
-    <header ng-include="'views/header.html'"></header>
+    <header ng-include="'shared/header.html'"></header>
 
     <!--content -->
     <div class="container">
@@ -23,7 +23,7 @@
     </div>
 
     <!-- footer -->
-    <footer ng-include="'views/footer.html'"></footer>
+    <footer ng-include="'shared/footer.html'"></footer>
 </div>
 
 <script src="lib/jquery/dist/jquery.min.js"></script>
@@ -37,9 +37,9 @@
 <script src="lib/ng-file-upload/ng-file-upload.js"></script>
 
 <script src="app.js"></script>
-<script src="js/controllers.js"></script>
-<script src="js/factory.js"></script>
-<script src="js/filter.js"></script>
-<script src="js/directive.js"></script>
+<script src="components/contact/contact.js"></script>
+<script src="shared/filter/filter.js"></script>
+<script src="shared/form/form-field-directive.js"></script>
+<script src="components/training/training.js"></script>
 </body>
 </html>
