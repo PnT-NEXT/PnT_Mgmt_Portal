@@ -1,0 +1,31 @@
+{
+  "name": "contacts",
+  "description": "This is a demo project for nodejs",
+  "main": "server.js",
+  "authors": [
+    "Aaron.Luo"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "InS_CourseSolution"
+  ],
+  "homepage": "https://github.com/PnT-NEXT/PnT_Mgmt_Portal",
+  "moduleType": [
+    "globals"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-messages": "ng-messages#*",
+    "angular-resource": "~1.4.8",
+    "bootstrap": "~3.3.6",
+    "angular-route": "~1.4.8",
+    "ng-file-upload": "~10.1.11"
+  }
+}
