@@ -1,12 +1,14 @@
 {
   "name": "contacts",
   "version": "1.0.0",
-  "description": "this is a practice applciation",
-  "main": "api.js",
+  "description": "This is a demo project for nodejs",
+  "main": "server.js",
   "dependencies": {
-    "body-parser": "^1.14.1",
+    "body-parser": "^1.14.2",
     "express": "^4.13.3",
-    "debug": "^2.2.0",
+    "fs": "^0.0.2",
+    "mongojs": "^2.0.0",
+    "multer": "^1.1.0",
     "xlsx": "^0.8.0"
   },
   "devDependencies": {},
@@ -14,7 +16,17 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PnT-NEXT/PnT_Mgmt_Portal.git"
+  },
+  "keywords": [
+    "InS_CourseSolution"
+  ],
+  "author": "Aaron.Luo",
   "license": "ISC",
-  "kerberos": "~0.0.17"
+  "bugs": {
+    "url": "https://github.com/PnT-NEXT/PnT_Mgmt_Portal/issues"
+  },
+  "homepage": "https://github.com/PnT-NEXT/PnT_Mgmt_Portal#readme"
 }
