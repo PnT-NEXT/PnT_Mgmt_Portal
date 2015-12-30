@@ -1,5 +1,5 @@
 angular.module('PnT_Portal-contact', ['ngRoute'])
-    .controller('ListController', function ($scope, Contact, $location) {
+    .controller('ListController', function ($scope, Contact, $location, appSetting) {
         $scope.contacts = Contact.query();
         $scope.fields = ['firstName', 'lastName'];
 
@@ -12,11 +12,11 @@ angular.module('PnT_Portal-contact', ['ngRoute'])
         $scope.sort.order = false;
 
         $scope.show = function (id) {
-            $location.url('/Contact/' + id);
+            $location.url(appSetting.virtualDir + '/Contact/' + id);
         }
     })
 
-    .controller('NewController', function ($scope, Contact, $location) {
+    .controller('NewController', function ($scope, Contact, $location, appSetting) {
         $scope.contact = new Contact({
             firstName: ['', 'text'],
             lastName: ['', 'text'],
@@ -33,14 +33,14 @@ angular.module('PnT_Portal-contact', ['ngRoute'])
                 $scope.$broadcast('record:invalid');
             } else {
                 $scope.contact.$save();
-                $location.url('/contacts');
+                $location.url(appSetting.virtualDir + '/contacts');
             }
         }
     })
 
-    .factory('Contact', function ($resource) {
+    .factory('Contact', function ($resource, appSetting) {
         // TODO: is the standard ways of following url should be: '/api/contact/:id'?
-        return $resource('/api/contact:id', {id: '@id'},
+        return $resource(appSetting.virtualDir + '/api/contact:id', {id: '@id'},
             {
                 'update': {method: 'PUT'}
             });

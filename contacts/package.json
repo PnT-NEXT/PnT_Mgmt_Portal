@@ -7,8 +7,10 @@
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
     "fs": "^0.0.2",
+    "lodash": "^3.10.1",
     "mongojs": "^2.0.0",
     "multer": "^1.1.0",
+    "winston": "^2.1.1",
     "xlsx": "^0.8.0"
   },
   "devDependencies": {},

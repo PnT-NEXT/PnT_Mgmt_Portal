@@ -1,9 +1,9 @@
-(function () {
-    var training = angular.module('PnT_Portal-training', ['ngRoute']);
-    training.controller('UploadController', function ($scope, Upload, $timeout) {
+
+angular.module('PnT_Portal-training', ['ngRoute'])
+    .controller('UploadController', function ($scope, Upload, $timeout, appSetting) {
         $scope.upload = function (file) {
             file.upload = Upload.upload({
-                url: 'http://localhost:3000/uploadFile',
+                url: 'http://localhost' + (appSetting.serverPort ? ':' + appSetting.serverPort : ':80') + appSetting.virtualDir +'/training/file',
                 data: {
                     file: file
                 }
@@ -22,4 +22,3 @@
             });
         };
     });
-})();
