@@ -18,7 +18,6 @@ var express = require('express'),
 
 	// my server variables 
 	config = require('./config'),
-	api = require('./route/api'),
 	trainingRoute = require('./route/trainingRoute'),
 	app = express(),
 
@@ -30,13 +29,12 @@ app
 	.use('/lib', express.static('bower_components'))
 
 	// set middle ware
-	.post(config.virtualDir + '/training/file', upload.single('file'), function(req, res, next) {
+	.post(config.virtualDir + '/api/training/file', upload.single('file'), function(req, res, next) {
 		next();
 	})
 
 	// Set Routes
-	.use(config.virtualDir + '/training', trainingRoute)
-	.use(config.virtualDir + '/api', api)
+	.use(config.virtualDir + '/api/training', trainingRoute)
 	
 	// return main page for SPA, this is not correct for all url return main page, there is a 404 error, only catch the main url
 	.get(config.virtualDir + '/contacts', function(req, res) {
