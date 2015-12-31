@@ -506,3 +506,147 @@ body .input input:focus + label, body .input input:focus + i, body .input input:
 iframe, object, embed {
     max-width: 100%
 }
+
+input[readonly] {
+    background-color: white !important;
+    cursor: text !important;
+}
+
+/*checkbox/radiobox style*/
+
+/*.checkbox ins, .radio ins {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    width: 23px;
+    height: 22px;
+    vertical-align: middle;
+    background: url(http://www.bootcss.com/p/icheck/skins/square/blue.png) no-repeat;
+    margin-right: 8px;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    -o-transition: all 0.1s linear;
+    -ms-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+    vertical-align: middle;
+}*/
+
+/*
+.radio ins {
+    background-position: -120px 0px;
+}
+
+.radio .hover {
+    background-position: -144px 0px;
+}
+
+.radio .checked {
+    background-position: -168px 0px;
+}
+
+.radio .enable {
+    background-position: -214px 0px;
+}
+
+.radio .disabled {
+    background-position: -191px 0px;
+}
+*/
+
+input[type="radio"], input[type="checkbox"] {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    height: 20px;
+    width: 20px;
+    line-height: 24px;
+    margin-right: 20px;
+}
+
+/*style for carousel*/
+
+.carousel-container {
+    margin: 20px auto;
+    padding: auto;
+}
+
+.carousel-indicators {
+    bottom: 0;
+}
+
+.carousel-control.right,
+.carousel-control.left {
+    background-image: none;
+}
+
+.carousel .item {
+    min-height: 200px;
+    height: 100%;
+    width: 100%;
+}
+
+.carousel-caption,
+.carousel .icon-container,
+.carousel-caption button {
+    background-color: #09c;
+}
+
+.carousel-caption {
+    padding: .5em;
+    margin: .5em;
+}
+
+.carousel .icon-container {
+    display: inline-block;
+    font-size: 25px;
+    line-height: 25px;
+    padding: 1em;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.carousel-caption button {
+    border-color: #00bfff;
+    margin-top: 1em;
+}
+
+/* Animation delays */
+.carousel-caption :first-child {
+    animation-delay: 1s;
+}
+
+.carousel-caption :nth-child(2) {
+    animation-delay: 2s;
+}
+
+.carousel-caption button {
+    animation-delay: 3s;
+}
+
+.skyblue {
+    background-color: #22c8ff;
+}
+
+.deepskyblue {
+    background-color: #00bfff;
+}
+
+.darkerskyblue {
+    background-color: #00a6dd;
+}
+
+.carousel-container h1 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.carousel-container .p {
+    padding-top: 125px;
+    text-align: center;
+}
+
+.carousel-container .p a {
+    text-decoration: underline;
+}

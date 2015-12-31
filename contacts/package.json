@@ -11,7 +11,8 @@
     "mongojs": "^2.0.0",
     "multer": "^1.1.0",
     "winston": "^2.1.1",
-    "xlsx": "^0.8.0"
+    "xlsx": "^0.8.0",
+    "mkdirp": "^0.5.1"
   },
   "devDependencies": {},
   "scripts": {

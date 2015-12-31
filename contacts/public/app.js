@@ -16,6 +16,10 @@ angular.module('PnT_Portal', ['ngRoute', 'ngResource', 'ngMessages', 'ngFileUplo
             .when(appSetting.virtualDir + '/upload', {
                 controller: 'UploadController',
                 templateUrl: 'components/training/upload.html'
+            })
+            .when(appSetting.virtualDir + '/cources', {
+                controller: 'CourcesListController',
+                templateUrl: 'components/training/list.html'
             });
 
         $locationProvider.html5Mode(true);

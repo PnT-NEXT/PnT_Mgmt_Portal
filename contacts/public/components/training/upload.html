@@ -1,11 +1,27 @@
 <h2>Please Select Course List</h2>
 <form id="uploadForm" name="uploadForm">
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="form-group">
-				<input name="file" type="file" class="form-control" ngf-select ng-model="file" ngf-max-size="5MB" required/>
-				<button ng-disabled="!uploadForm.$valid" class="btn btn-primary" ng-click="upload(file)">Upload</button>
-			</div>
-		</div>	
-	</div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model="file.name" ng-readonly="!file" ng-required>
+                <!--<span ng-show="uploadForm.$error.required" class="warning">Required</span>-->
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" ngf-select ng-model="file" ngf-max-size="5MB" required>
+                            Browse...
+                        </button>
+            <button ng-disabled="uploadForm.$invalid" class="btn btn-primary" ng-click="upload(file)">Upload</button>
+                    </span>
+            </div>
+        </div>
+    </div>
 </form>
+
+<div>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100"
+             ng-style="{'width': progress+'%'}"/>
+    </div>
+    <p>{{message}}</p>
+
+    <p>{{errorMsg}}</p>
+</div>
