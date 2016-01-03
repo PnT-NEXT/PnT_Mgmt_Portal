@@ -157,6 +157,11 @@ body a, body .header a {
     font-weight: bold;
 }
 
+.clearfix {
+    overflow: auto;
+    _height: 1%
+}
+
 body .b {
     font-weight: 700
 }
@@ -510,6 +515,10 @@ iframe, object, embed {
 input[readonly] {
     background-color: white !important;
     cursor: text !important;
+}
+
+body em {
+    font-weight: bold;
 }
 
 /*checkbox/radiobox style*/

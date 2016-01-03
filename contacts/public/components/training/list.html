@@ -74,11 +74,17 @@
 
 <!--table for all cources list-->
 <div ng-show="cources.length" ng-cloak>
+
     <!--cources revervation-->
-    <div>
-        <p> {{9}} cources selected</p>
+    <div class="clearfix">
+        <div ng-disabled="selectedCources<=0" class="btn btn-info" ng-click="checkout()"
+             style="float: right; text-align: center; margin-bottom: 10px; width: 100px;">
+            <span class="glyphicon glyphicon-shopping-cart"></span>
+            <em>{{selectedCources}}</em> of <em>{{totalCources}}</em>
+        </div>
     </div>
 
+    <!--cources list-->
     <div>
         <input type="search" placeholder="Search" class="form-control" ng-model="query"/>
     </div>
@@ -86,7 +92,10 @@
         <thead>
         <tr>
             <th>
-                <input type="checkbox" ng-click="toggleAll($event)">
+                <!--<input type="checkbox" ng-click="toggleAll($event)">-->
+                <multi-selectbox checkboxes="cources" all-selected="allSelected"
+                                 all-clear="nonSelected" total-count="totalCources"
+                                 selected-count="selectedCources"></multi-selectbox>
             </th>
             <th ng-repeat="field in fields" ng-click="sort(field)"
                 style="vertical-align: middle;font-weight: bold; text-align: center" ng-hide="$first">{{field}}
@@ -95,9 +104,9 @@
         </thead>
 
         <tbody style="vertical-align: middle; text-align: start">
-        <tr ng-repeat="cource in cources | filter : query | orderBy: predicate : sort.order"
-            ng-click="view(cource._id)">
-            <td><input type="checkbox" ng-checked="cource.isChecked"></td>
+        <tr ng-repeat="cource in cources | filter : query | orderBy: predicate : sort.order">
+            <!--ng-click="view(cource._id)"-->
+            <td><input type="checkbox" ng-model="cource.isSelected"></td>
             <td ng-repeat="field in fields" ng-hide="$first">
                 {{ cource[field]}}
             </td>

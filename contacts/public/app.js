@@ -3,6 +3,7 @@
 angular.module('PnT_Portal', ['ngRoute', 'ngResource', 'ngMessages', 'ngFileUpload', 'PnT_Portal-contact', 'PnT_Portal-training'])
     .constant('appSetting', {virtualDir: '', serverPort: '3000'})
     //.constant('appSetting', { virtualDir: '/node/contacts/server.js', serverPort: '80' }) // deploy IIS config
+    .value('gloablSelectedCources', {})
     .config(function ($routeProvider, $locationProvider, appSetting) {
         $routeProvider
             .when(appSetting.virtualDir + '/contacts', {
@@ -20,6 +21,10 @@ angular.module('PnT_Portal', ['ngRoute', 'ngResource', 'ngMessages', 'ngFileUplo
             .when(appSetting.virtualDir + '/cources', {
                 controller: 'CourcesListController',
                 templateUrl: 'components/training/list.html'
+            })
+            .when(appSetting.virtualDir + '/training/cart', {
+                controller: 'CartController',
+                templateUrl: 'components/training/cart.html'
             });
 
         $locationProvider.html5Mode(true);
