@@ -1,6 +1,6 @@
 angular.module('PnT_Portal-widget', [])
 
-    .directive('multiSelectbox', function () {
+    .directive('multiCheckbox', function () {
         return {
             replace: true,
             restrict: 'E',

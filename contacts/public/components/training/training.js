@@ -1,12 +1,12 @@
 (function () {
     angular.module('PnT_Portal-training', ['ngRoute', 'PnT_Portal-widget'])
 
-        /*.value('gloablSelectedCources', [])*/
+        //.value('globalSelectedCources', [])  //why cannot share values between controllers directly instead of Services??
 
         .controller('UploadController', function ($scope, Upload, $timeout, appSetting) {
             $scope.upload = function (file) {
                 file.upload = Upload.upload({
-                    url: 'http://localhost' + (appSetting.serverPort ? ':' + appSetting.serverPort : ':80') + appSetting.virtualDir + '/training/file',
+                    url: 'http://localhost' + (appSetting.serverPort ? ':' + appSetting.serverPort : ':80') + appSetting.virtualDir + '/api/training/file',
                     data: {
                         file: file
                     }
@@ -35,17 +35,12 @@
             };
         })
 
-        .controller('CourcesListController', function ($scope, $location, appSetting, TrainingFactory/*, gloablSelectedCources*/) {
+        .controller('CourcesController', function ($scope, $location, appSetting, TrainingFactory, SharedDataService) {
             $scope.cources = TrainingFactory.query(function (cources) {
                 $scope.hotCources = cources.slice(0, 6);  //top5 cources
                 $scope.fields = Object.keys(cources[0]);
                 $scope.sort.order = true;
                 $scope.sort('name');
-
-                //fake data
-                /*             $scope.cources.forEach(function (val, idx) {
-                 val.isSelected = idx % 3 === 0;
-                 });*/
             });
 
             $scope.reset = function () {
@@ -69,29 +64,27 @@
             }
 
             $scope.view = function (id) {
-                $location.url(appSetting.virtualDir + '/cources/' + id);
+                $location.url(appSetting.virtualDir + '/training/' + id);
             }
 
             $scope.checkout = function () {
-                gloablSelectedCources = getSelctedCources();
+                function getSelected() {
+                    var selected = [];
+                    angular.forEach($scope.cources, function (obj, idx) {
+                        if (obj.isSelected) {
+                            selected.push(obj);
+                        }
+                    });
+                    return selected;
+                }
+
+                SharedDataService.setSelectedCources(getSelected());
                 $location.url(appSetting.virtualDir + '/training/cart');
             }
-
-            getSelctedCources = function () {
-                var selected = [];
-                angular.forEach($scope.cources, function (obj, idx) {
-                    if (obj.isSelected) {
-                        selected.push(obj);
-                    }
-                });
-
-                return selected;
-            };
         })
 
-        .controller('CartController', function ($scope, TrainingFactory /*, gloablSelectedCources*/) {
-            //$scope.totalCources = globalCources;
-            $scope.selectedCources = gloablSelectedCources;
+        .controller('CartController', function ($scope, TrainingFactory, SharedDataService) {
+            $scope.selectedCources = SharedDataService.getSelectedCources();
 
             checkSum = function () {
                 var sum = 0, selected = 0;
@@ -110,9 +103,7 @@
                 angular.forEach($scope.selectedCources, function (val, idx) {
                     if (val.isSelected) {
                         //selected.push(val);
-                        var cource = TrainingFactory.$get({id: val._id});
-                        cource.isSelected = val.isSelected;
-                        cource.$save();
+                        TrainingFactory.update(val);
                     }
                 });
                 //TrainingFactory.bulkUpdate(selected);
@@ -131,9 +122,25 @@
         })
 
         .factory('TrainingFactory', function ($resource, appSetting) {
-            return $resource(appSetting.virtualDir + '/api/training/:id', {id: '@id'});
+            return $resource(appSetting.virtualDir + '/api/training/:id', {id: '@_id'}, {
+                update: {
+                    method: 'PUT', isArray: false
+                }
+            });
+        })
+        .service('SharedDataService', function () {
+            var selectedCources = [],
+                getSelectedCources = function () {
+                    return selectedCources || []
+                },
+                setSelectedCources = function (cources) {
+                    selectedCources = cources || [];
+                };
+
+            return {
+                getSelectedCources: getSelectedCources,
+                setSelectedCources: setSelectedCources
+            };
         })
     ;
 })();
-
-///? how to inject a value to controller
