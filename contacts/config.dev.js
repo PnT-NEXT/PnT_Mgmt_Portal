@@ -1,9 +1,9 @@
 var config = {
 	virtualDir: '',
 	authUser: 'xiaofan',
-	userRegion: 'ASIAPACIFIC',
+	userRegion: 'TestRegion',
 	userName: 'Xiao.Fang',
-	email: 'fxiao@hpe.com'
+	email: 'xiaofang@test.com'
 }
 
 module.exports = config;
