@@ -1,5 +1,7 @@
-var trainings	= require('./trainings');
+var trainings	= require('./trainings'),
+	users		= require('./users');
 
 module.exports = {
-	trainings: 	trainings
+	trainings: 	trainings,
+	users: 		users
 };

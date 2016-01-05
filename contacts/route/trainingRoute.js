@@ -1,9 +1,10 @@
 var express 	= require('express'),
-    bodyParser  = require('body-parser'),
 	router 		= express.Router(),
-	_			= require('lodash'),
+	bodyParser 	= require('body-parser'),
+	_ 			= require('lodash'),
 	excel 		= require('xlsx'),
-	model		= require('../model');
+	model 		= require('../model'),
+	fs			= require('fs');
 
 router
 	.route('/file')
@@ -66,7 +67,8 @@ router
 					training = {};
 
 					// insert colleciont into db
-					model.trainings.insert(trainingCollection, function (err, data) {
+					model.trainings.insert(trainingCollection, function(err, data) {
+						fs.unlink(req.file.path);
 						res.json({
 							success: true,
 							message: 'successfully upload ' + data.length + ' courses'
@@ -78,42 +80,40 @@ router
 	});
 
 router
-    .use(bodyParser.json())
-    .route('/')
-    .get(function(req, res) {
-        model.trainings.find(function(err, data) {
-            res.json(data);
-        });
-    });
+	.route('/')
+	.get(function(req, res) {
+		model.trainings.findAll(function(err, data) {
+			res.json(data);
+		});
+	});
 
 router
-    .param('id', function(req, res, next) {
-        req.dbQuery = {
-            courseId: req.params.id
-        }; // here 10 means 10 base decimal system
-        next();
-    })
-    .route('/:id')
-    .get(function(req, res) {
-        model.trainings.findOne(req.dbQuery, function(err, data) {
-            res.json(data);
-        });
-    })
-    .put(function(req, res) {
-        var training = req.body;
-        delete training._id;
-        delete training.$promise;
-        delete training.$resolved;
-        model.trainings.update(req.dbQuery, training, function(err, data) {
-            res.json(data);
-        });
-    })
-    .delete(function(req, res) {
-        model.trainings.remove(req.dbQuery, true, function() {
-            res.json({
-            	message: 'Successfully delete course: ' + req.params.id
-            });
-        });
-    });
+	.use(bodyParser.json())
+	.param('id', function(req, res, next) {
+		req.dbQuery = {
+			courseId: req.params.id
+		}; // here 10 means 10 base decimal system
+		next();
+	})
+	.route('/:id')
+	.get(function(req, res) {
+		model.trainings.findOne(req.dbQuery, function(err, data) {
+			res.json(data);
+		});
+	})
+	.delete(function(req, res) {
+		model.trainings.remove(req.dbQuery, true, function(err, result) {
+			res.json(result);
+		});
+	})
+	.put(function(req, res) {
+		var training = req.body;
+		delete training._id;
+		delete training.$promise;
+		delete training.$resolved;
+		model.trainings.update(req.dbQuery, training, function(err, result) {
+			res.json(result);
+		});
+	});
 
 module.exports = router;
