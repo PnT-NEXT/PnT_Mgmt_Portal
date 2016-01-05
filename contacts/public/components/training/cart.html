@@ -1,0 +1,74 @@
+<style>
+    .cource {
+        padding: 10px;
+        margin: 10px auto;
+        border: dashed lightgray 1px;
+        border-radius: 5px;
+        background-color: rgba(107, 190, 147, 0.05);
+        position: relative;
+    }
+
+    .cource .course-caption, .tip {
+        font-weight: bold;
+        font-size: larger;
+        color: #128F76;
+        text-transform: capitalize;
+    }
+
+    .cource .strikeout {
+        text-decoration: line-through;
+    }
+
+    .cource .tag {
+        /*text-transform: lowercase;*/
+    }
+
+    .cource .cost {
+        color: firebrick;
+        font-size: large;
+    }
+
+    .cource .actions {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+
+    .align-right {
+        float: right !important;
+        text-align: center;
+        margin: 10px auto;
+        min-width: 150px;
+    }
+</style>
+
+<div ng-hide="selectedCources.length" class="tip">
+    no any cource selected.
+</div>
+
+<div ng-show="selectedCources.length">
+
+    <!--sumbit -->
+    <div class="clearfix">
+        <div class="btn btn-info align-right" ng-click="submit()">
+            <span class="glyphicon glyphicon-shopping-cart" ng-disabled="totalSelected<=0"></span>
+            <em> Cost {{totalCost | currency}} for {{totalSelected}} Cources</em>
+        </div>
+    </div>
+
+    <!--cource reservation list-->
+    <div ng-repeat="cource in selectedCources" class="cource">
+        <p class="course-caption" ng-class="{'strikeout':!cource.isSelected}">{{cource['name']}}</p>
+
+        <span class="tag">{{cource['courseId']}} / {{cource['city']}} / {{cource['programType']}}</span>
+
+        <p class="cost">{{cource['cost'] |currency }}</p>
+
+        <div class="actions">
+            <a class="glyphicon btn"
+               ng-class="{true: 'glyphicon-remove btn-primary', false: 'glyphicon-ok btn-success'}[cource.isSelected]"
+               ng-click="toggle(cource._id)"></a>
+        </div>
+    </div>
+</div>
+
