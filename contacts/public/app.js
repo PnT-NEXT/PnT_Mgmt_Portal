@@ -13,13 +13,21 @@ angular.module('PnT_Portal', ['ngRoute', 'ngResource', 'ngMessages', 'ngFileUplo
                 controller: 'NewController',
                 templateUrl: 'components/contact/new.html'
             })
-            .when(appSetting.virtualDir + '/upload', {
+            .when(appSetting.virtualDir + '/training', {
+                controller: 'CourcesController',
+                templateUrl: 'components/training/list.html'
+            })
+            .when(appSetting.virtualDir + '/training/upload', {
                 controller: 'UploadController',
                 templateUrl: 'components/training/upload.html'
             })
-            .when(appSetting.virtualDir + '/cources', {
-                controller: 'CourcesListController',
-                templateUrl: 'components/training/list.html'
+            .when(appSetting.virtualDir + '/training/cart', {
+                controller: 'CartController',
+                templateUrl: 'components/training/cart.html'
+            })
+            /* route to training list as default.*/
+            .when(appSetting.virtualDir + '/', {
+                redirectTo: "/training"
             });
 
         $locationProvider.html5Mode(true);

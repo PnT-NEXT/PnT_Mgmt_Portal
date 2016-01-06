@@ -1,20 +1,64 @@
-<div class="header" role="banner">
-    <div class="container">
-        <div class="logo">
-            <p>PnT.NEXT</p>
+<header role="banner">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+
+            <!--branding-->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#navbar-collapse-area">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="logo">
+                    <img alt="pnt logo" src="assets/img/logo.png">
+                </div>
+            </div>
+
+            <!--end of brandind-->
+
+            <!--menu items-->
+            <div class="collapse navbar-collapse" id="navbar-collapse-area">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Training
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Historical Training</a></li>
+                            <li><a href="#">Quarter Training Pool</a></li>
+                            <li><a href="#">Reserved Training</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Upload Quarter Training</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Grow@HPE</a></li>
+                            <li><a href="#">HPE University</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#"
+                           class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false">About Us</a>
+                    </li>
+                </ul>
+                <!--end of menu items-->
+
+                <!--searchbox-->
+                <div class="clearfix header-search col-md-4 col-lg-8 col-sm-6">
+                    <div class="col-lg-4 right-input-addon">
+                        <i class="glyphicon glyphicon-search"></i>
+                        <input type="search" class="form-control" placeholder="Search"/>
+                    </div>
+                </div>
+                <!--end of searchbox-->
+
+                <!--user info-->
+                <div class="userinfo navbar-right">
+                    <span>COPRDOMAIN\COPRUSER</span>
+                </div>
+                <!--end of user info-->
+            </div>
         </div>
-
-        <nav>
-            <ul>
-                <!--<li><a href="/contacts">Team</a></li>-->
-                <li><a href="/upload">Upload</a></li>
-                <li><a href="/cources">Training</a></li>
-                <!--<li>  <a class="btn" href="#">Login</a></li>-->
-            </ul>
-        </nav>
-
-        <button class="btn toggle">
-            <span class="glyphicon glyphicon-menu-hamburger"></span>
-        </button>
-    </div>
-</div>
+    </nav>
+</header>
