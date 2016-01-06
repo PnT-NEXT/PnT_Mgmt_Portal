@@ -1,6 +1,6 @@
 <!--carousel side for top 5 hot cources-->
 <div ng-show="hotCources.length" class="carousel-container">
-    <div class="carousel slide">
+    <div class="carousel slide" id="carousel-cources">
         <!-- Indicators -->
         <ol class="carousel-indicators">
             <li ng-repeat="cource in hotCources" data-target="#carousel-cources" data-slide-to="{{$index}}"
@@ -9,6 +9,7 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
             <div ng-repeat="cource in hotCources" ng-class="{'item':true, 'deepskyblue':true,'active':$first}">
+                <img ng-src="assets/img/slide.jpg"/>
                 <div class="carousel-caption">
                     <h1 data-animation="animated bounceInLeft">
                         {{cource['name']}}

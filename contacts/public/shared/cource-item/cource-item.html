@@ -1,0 +1,94 @@
+<style>
+    .cource-item {
+        /*width: 260px;*/
+        margin: 5px;
+        padding: 5px;
+        height: 320px;
+        background: white !important;
+        -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+        /*display: inline-block;*/
+    }
+
+    .cource-item .cource-view {
+        background-color: #19b5e4;
+        margin: -5px;
+        height: 45%;
+        width: auto;
+        position: relative;
+    }
+
+    .cource-item .cource-more {
+        /*position: relative;*/
+        margin: 0;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .cource-item .cource-rating {
+        position: absolute;
+        bottom: 0px;
+        right: 5px;
+    }
+
+    .cource-item .cource-info {
+        padding: 5px;
+        text-transform: capitalize;
+        line-height: 1.5em;
+        margin-bottom: -5px;
+    }
+
+    .cource-item .cource-info .cource-title {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+        font-weight: 20px;
+        font-weight: bold;
+        color: #444444 !important;
+    }
+
+    .cource-item .cource-info p, .cource-item .cource-info small, .cource-item .cource-info span {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+    }
+
+    .cource-item .cource-actions {
+        margin-top: 10px;
+        margin-right: -5px;
+    }
+
+    .cource-item .cource-actions .btn {
+        -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+        box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.4);
+    }
+
+</style>
+
+<div class="cource-item col-lg-3 col-md-6 col-sm-6">
+
+    <div class="cource-view">
+
+        <!--<div class="cource-more"><a class="btn btn-default">learn more</a></div>-->
+
+        <div class="cource-rating">
+            <starrating color="white" size="large" read-only="false" rating="rating" max-rating="5"></starrating>
+        </div>
+    </div>
+
+    <div class="cource-info">
+        <p class="cource-title">{{courceObj.name}}</p>
+
+        <small>{{courceObj.courseId}} | {{courceObj.programType}}</small>
+
+        <small>{{courceObj.city}} | {{courceObj.duration}}</small>
+        <div class="cource-actions pull-right">
+            <a class="btn btn-link">more</a>
+            <a class="btn btn-link">enroll</a>
+        </div>
+
+    </div>
+
+</div>

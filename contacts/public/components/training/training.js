@@ -1,7 +1,9 @@
+/*db.training columns:
+ * _id, name, courseId, programType, duration, city, seat, cost, instructor
+ * */
+
 (function () {
     angular.module('PnT_Portal-training', ['ngRoute', 'PnT_Portal-widget'])
-
-        //.value('globalSelectedCources', [])  //why cannot share values between controllers directly instead of Services??
 
         .controller('UploadController', function ($scope, Upload, $timeout, appSetting) {
             $scope.upload = function (file) {
@@ -103,6 +105,7 @@
                 angular.forEach($scope.selectedCources, function (val, idx) {
                     if (val.isSelected) {
                         //selected.push(val);
+                        val.city='HongHong';
                         TrainingFactory.update(val);
                     }
                 });

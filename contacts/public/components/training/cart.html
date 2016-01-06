@@ -44,6 +44,7 @@
 
 <div ng-hide="selectedCources.length" class="tip">
     no any cource selected.
+
 </div>
 
 <div ng-show="selectedCources.length">
@@ -56,19 +57,23 @@
         </div>
     </div>
 
-    <!--cource reservation list-->
-    <div ng-repeat="cource in selectedCources" class="cource">
-        <p class="course-caption" ng-class="{'strikeout':!cource.isSelected}">{{cource['name']}}</p>
-
-        <span class="tag">{{cource['courseId']}} / {{cource['city']}} / {{cource['programType']}}</span>
-
-        <p class="cost">{{cource['cost'] |currency }}</p>
-
-        <div class="actions">
-            <a class="glyphicon btn"
-               ng-class="{true: 'glyphicon-remove btn-primary', false: 'glyphicon-ok btn-success'}[cource.isSelected]"
-               ng-click="toggle(cource._id)"></a>
-        </div>
+    <div ng-repeat="c in selectedCources">
+        <cource-card cource="{{c}}"></cource-card>
     </div>
+
+    <!--cource reservation list-->
+    <!-- <div ng-repeat="cource in selectedCources" class="cource">
+         <p class="course-caption" ng-class="{'strikeout':!cource.isSelected}">{{cource['name']}}</p>
+
+         <span class="tag">{{cource['courseId']}} / {{cource['city']}} / {{cource['programType']}}</span>
+
+         <p class="cost">{{cource['cost'] |currency }}</p>
+
+         <div class="actions">
+             <a class="glyphicon btn"
+                ng-class="{true: 'glyphicon-remove btn-primary', false: 'glyphicon-ok btn-success'}[cource.isSelected]"
+                ng-click="toggle(cource._id)"></a>
+         </div>
+     </div>-->
 </div>
 
