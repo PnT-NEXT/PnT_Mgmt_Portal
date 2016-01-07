@@ -1,7 +1,7 @@
 <style>
     .cource-item {
         /*width: 260px;*/
-        margin: 5px;
+        margin: 10px;
         padding: 5px;
         height: 320px;
         background: white !important;
@@ -57,21 +57,22 @@
 
     .cource-item .cource-actions {
         position: absolute;
-        bottom: 5px;
+        bottom: 15px;
         text-align: right;
-        right: 5px;
+        right: 30px;
     }
 
     .cource-item .cource-actions .btn {
         -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
         box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.4);
+        margin-left: 5px;
     }
 
 </style>
 
-<div class="cource-item col-lg-3 col-md-6 col-sm-6">
+<div class="cource-item">
 
-    <div class="cource-view">
+    <div class="cource-view" ng-style="{background:rndColor}">
 
         <!--<div class="cource-more"><a class="btn btn-default">learn more</a></div>-->
 
@@ -88,7 +89,7 @@
         <span>{{cource.city}} | {{cource.duration}} Days</span>
     </div>
     <div class="cource-actions">
-        <a class="btn btn-link">more</a>
+        <a class="btn btn-link" ng-click="onClickMore()">more</a>
         <a class="btn btn-link">enroll</a>
     </div>
 </div>

@@ -17,6 +17,8 @@ angular.module('PnT_Portal-widget')
 
                 $scope.rating = 0;
 
+                $scope.rndColor = randomColor({hue: 'blue', luminosity: 'light'});
+
                 $scope.onClickMore = function (param) {
                     $scope.onMore({param: param});
                 };
