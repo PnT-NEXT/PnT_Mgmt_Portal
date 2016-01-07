@@ -1,27 +1,46 @@
-<h2>Please Select Course List</h2>
+<style>
+    .upload-container {
+        height: 500px;
+        padding: 100px 0;
+    }
+    .progressbar-container {
+        height: 180px;
+        padding: 90px 0;
+    }
+</style>
+<div class="upload-container">
+<h5>Please Select Course List</h5>
 <form id="uploadForm" name="uploadForm">
     <div class="row">
         <div class="col-sm-12">
-            <div class="form-group">
-                <input type="text" class="form-control" ng-model="file.name" ng-readonly="!file" ng-required>
-                <!--<span ng-show="uploadForm.$error.required" class="warning">Required</span>-->
+            <div class="input-group">
+                <input type="text" placeholder="Click 'Browser' button to choose excel file. " class="form-control" ng-model="file.name" ng-readonly="!file" ng-required>
                     <span class="input-group-btn">
                         <button class="btn btn-default" ngf-select ng-model="file" ngf-max-size="5MB" required>
                             Browse...
                         </button>
-            <button ng-disabled="uploadForm.$invalid" class="btn btn-primary" ng-click="upload(file)">Upload</button>
+                        <button ng-disabled="uploadForm.$invalid" class="btn btn-primary" ng-click="upload(file)">Upload</button>
                     </span>
             </div>
         </div>
     </div>
 </form>
 
-<div>
-    <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100"
-             ng-style="{'width': progress+'%'}"/>
+<div class="row progressbar-container">
+    <div class="col-sm-12">
+        <div class="progress" ng-show="progress > 0">
+            <div class="progress-bar" role="progressbar" aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100"
+                 ng-style="{'width': progress+'%'}"/>
+        </div>
     </div>
-    <p>{{message}}</p>
-
-    <p>{{errorMsg}}</p>
+    <div class="col-sm-12">
+        {{message}}
+    </div>
+    <div class="col-sm-12 text-center">
+        <a class="btn btn-primary" href="/training" ng-show="message">Go to Training Course List</a>
+    </div>
+    <div class="col-sm-12">
+        {{errorMsg}}
+    </div>
+</div>
 </div>
