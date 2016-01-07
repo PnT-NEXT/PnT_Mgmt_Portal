@@ -1,16 +1,16 @@
-var express 	= require('express'),
+var express     = require('express'),
     bodyParser  = require('body-parser'),
-	router 		= express.Router(),
-	_			= require('lodash'),
+    router      = express.Router(),
+    _           = require('lodash'),
     util        = require('../helper/util'),
-	model		= require('../model'),
+    model       = require('../model'),
     config      = require('../config');
 
 router
     .route('/')
     .get(function (req, res) {
-        model.users.findAll(function(err, data) {
-            res.json(data);
+        model.users.findAll(function(err, docs) {
+            res.json(docs);
         });
     });
 
@@ -18,30 +18,30 @@ router
     .use(bodyParser.json())
     .param('id', function (req, res, next) {
         req.dbQuery = {
-            _id: req.params.id
+            _id: util.strToMongoId(req.params.id.toString())
         }; // here 10 means 10 base decimal system
         next();
     })
     .route('/:id')
     .get(function (req, res) {
-        model.users.findOne(req.dbQuery, function(err, data) {
-        	// load the traning list based on user course Id collection
-        	// and set to user courseDetailInformation
-            if (data)  {
-                if (data.courseList.length > 0) {
-                    var idCollection = _.map(data.courseList, util.toMongoId);
+        model.users.findOne(req.dbQuery, function(err, docs) {
+            // load the traning list based on user course Id collection
+            // and set to user courseDetailInformation
+            if (docs)  {
+                if (docs.courseList.length > 0) {
+                    var idCollection = _.map(docs.courseList, util.toMongoId);
                     var query = {
                         _id: {$in: idCollection}
                     };
                     model.trainings.find(query, function (err, courseDetailData) {
-                        user.courseDetailList = courseDetailData;
-                        res.json(data);
+                        docs.courseDetailList = courseDetailData;
+                        res.json(docs);
                     });
                 } else {
-                    res.json(data);
+                    res.json(docs);
                 }
             } else {
-                res.json(data);
+                res.json(docs);
             }
         });
     })

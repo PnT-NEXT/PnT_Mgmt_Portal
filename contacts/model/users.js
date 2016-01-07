@@ -49,7 +49,7 @@ users.update = function (query, user, callback) {
  */
 users.remove = function (query, justone, callback) {
 	db.users.remove(query, justone, function (err, result) {
-		callback();
+		callback(err, result);
 	});
 }
 
