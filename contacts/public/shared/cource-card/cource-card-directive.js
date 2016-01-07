@@ -3,7 +3,7 @@ angular.module('PnT_Portal-widget')
 
         return {
             scope: {
-                cource: '@',
+                cource: '=',
                 onMore: '&',
                 onEnroll: '&',
                 onRating: '&'
@@ -11,10 +11,9 @@ angular.module('PnT_Portal-widget')
 
             restrict: 'EA',
 
-            templateUrl: '/shared/cource-item/cource-item.html',
+            templateUrl: '/shared/cource-card/cource-card.html',
 
             controller: function ($scope, $element, $attrs) {
-                $scope.courceObj = JSON.parse($scope.cource);
 
                 $scope.rating = 0;
 
@@ -28,8 +27,8 @@ angular.module('PnT_Portal-widget')
 
                 $scope.onClickRating = function (param) {
                     $scope.onRating({param: param});
-                    if (!$scope.courceObj && $scope.courceObj.hasOwnProperty('rating')) {
-                        $scope.courceObj.rating = $scope.rating;
+                    if (!$scope.cource && $scope.cource.hasOwnProperty('rating')) {
+                        $scope.cource.rating = $scope.rating;
                     }
                 };
             }

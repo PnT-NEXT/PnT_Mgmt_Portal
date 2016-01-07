@@ -44,7 +44,6 @@
 
 <div ng-hide="selectedCources.length" class="tip">
     no any cource selected.
-
 </div>
 
 <div ng-show="selectedCources.length">
@@ -57,8 +56,8 @@
         </div>
     </div>
 
-    <div ng-repeat="c in selectedCources">
-        <cource-card cource="{{c}}"></cource-card>
+    <div ng-repeat="cource in selectedCources">
+        <cource-card cource="cource"></cource-card>
     </div>
 
     <!--cource reservation list-->

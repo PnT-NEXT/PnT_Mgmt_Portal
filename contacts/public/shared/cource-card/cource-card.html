@@ -32,7 +32,7 @@
     }
 
     .cource-item .cource-info {
-        padding: 5px;
+        padding: 10px;
         text-transform: capitalize;
         line-height: 1.5em;
         margin-bottom: -5px;
@@ -43,8 +43,8 @@
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 3;
         overflow: hidden;
-        font-weight: 20px;
-        font-weight: bold;
+        font-size: 18px;
+        /*font-weight: bold;*/
         color: #444444 !important;
     }
 
@@ -56,8 +56,10 @@
     }
 
     .cource-item .cource-actions {
-        margin-top: 10px;
-        margin-right: -5px;
+        position: absolute;
+        bottom: 5px;
+        text-align: right;
+        right: 5px;
     }
 
     .cource-item .cource-actions .btn {
@@ -79,16 +81,14 @@
     </div>
 
     <div class="cource-info">
-        <p class="cource-title">{{courceObj.name}}</p>
+        <p class="cource-title">{{cource.name}}</p>
 
-        <small>{{courceObj.courseId}} | {{courceObj.programType}}</small>
+        <span>{{cource.courseId}} | {{cource.programType}}</span>
 
-        <small>{{courceObj.city}} | {{courceObj.duration}}</small>
-        <div class="cource-actions pull-right">
-            <a class="btn btn-link">more</a>
-            <a class="btn btn-link">enroll</a>
-        </div>
-
+        <span>{{cource.city}} | {{cource.duration}} Days</span>
     </div>
-
+    <div class="cource-actions">
+        <a class="btn btn-link">more</a>
+        <a class="btn btn-link">enroll</a>
+    </div>
 </div>
