@@ -70,6 +70,8 @@ if (process.env.NODE_ENV == 'dev') {
         logger.error(err.status);
         if (err.status != 404) {
             logger.error('request error dev', err ? err.message : err, err ? err.stack : '');
+        } else {
+            logger.error(req.originalUrl);
         }
         res.status(err.status || 500);
         res.json('error', {
