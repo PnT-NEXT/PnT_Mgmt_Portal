@@ -1,6 +1,6 @@
 <!--carousel side for top 5 hot cources-->
 <div ng-show="hotCources.length" class="carousel-container">
-    <div class="carousel slide" id="carousel-cources">
+    <div class="carousel slide" id="carousel-cources" data-ride="carousel" data-interval="3000">
         <!-- Indicators -->
         <ol class="carousel-indicators">
             <li ng-repeat="cource in hotCources" data-target="#carousel-cources" data-slide-to="{{$index}}"
@@ -10,6 +10,7 @@
         <div class="carousel-inner" role="listbox">
             <div ng-repeat="cource in hotCources" ng-class="{'item':true, 'deepskyblue':true,'active':$first}">
                 <img ng-src="assets/img/slide.jpg"/>
+
                 <div class="carousel-caption">
                     <h1 data-animation="animated bounceInLeft">
                         {{cource['name']}}
@@ -32,6 +33,9 @@
         </a>
     </div>
     <!-- /.carousel -->
+    <script>
+        $('#carousel-cources').carousel();
+    </script>
 </div>
 
 <!--table for all cources list-->
@@ -39,9 +43,9 @@
 
     <!--cources revervation-->
     <div class="clearfix">
-        <div ng-disabled="selectedCources<=0" class="btn btn-info" ng-click="checkout()"
+        <div ng-disabled="selectedCources<=0" class="btn btn-info" ng-click="likeAll()"
              style="float: right; text-align: center; margin-bottom: 10px; width: 100px;">
-            <span class="glyphicon glyphicon-shopping-cart"></span>
+            <span class="glyphicon glyphicon-heart"></span>
             <em>{{selectedCources}}</em> of <em>{{totalCources}}</em>
         </div>
     </div>
@@ -54,7 +58,6 @@
         <thead>
         <tr>
             <th>
-                <!--<input type="checkbox" ng-click="toggleAll($event)">-->
                 <multi-checkbox checkboxes="cources" all-selected="allSelected"
                                 all-clear="nonSelected" total-count="totalCources"
                                 selected-count="selectedCources"></multi-checkbox>
@@ -76,41 +79,3 @@
         </tbody>
     </table>
 </div>
-
-<script>
-    (function ($) {
-        //Function to animate slider captions
-        function doAnimations(elems) {
-            //Cache the animationend event in a variable
-            var animEndEv = 'webkitAnimationEnd animationend';
-
-            elems.each(function () {
-                var $this = $(this),
-                        $animationType = $this.data('animation');
-                $this.addClass($animationType).one(animEndEv, function () {
-                    $this.removeClass($animationType);
-                });
-            });
-        }
-
-        //Variables on page load
-        var $myCarousel = $('#carousel-example-generic'),
-                $firstAnimatingElems = $myCarousel.find('.item:first').find("[data-animation ^= 'animated']");
-
-        //Initialize carousel
-        $myCarousel.carousel();
-
-        //Animate captions in first slide on page load
-        doAnimations($firstAnimatingElems);
-
-        //Pause carousel
-        $myCarousel.carousel('pause');
-
-        //Other slides to be animated on carousel slide event
-        $myCarousel.on('slide.bs.carousel', function (e) {
-            var $animatingElems = $(e.relatedTarget).find("[data-animation ^= 'animated']");
-            doAnimations($animatingElems);
-        });
-
-    })(jQuery);
-</script>

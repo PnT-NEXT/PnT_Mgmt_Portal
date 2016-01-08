@@ -33,9 +33,11 @@ angular.module('PnT_Portal', ['ngRoute', 'ngResource', 'ngMessages', 'ngFileUplo
         $locationProvider.html5Mode(true);
     })
 
-    .run(function ($rootScope) {
+    .run(function ($rootScope, UserService) {
         /* set page title on route changes*/
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
             $rootScope.title = current.$$route.originalPath.replace(/\//g, '-').toUpperCase();
         });
+
+        UserService.initialize();
     });

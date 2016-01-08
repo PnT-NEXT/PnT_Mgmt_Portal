@@ -40,39 +40,29 @@
         margin: 10px auto;
         min-width: 150px;
     }
+
+    .btn-right {
+        margin-right: 25px;
+    }
+
 </style>
 
-<div ng-hide="selectedCources.length" class="tip">
+<div ng-hide="cources.length" class="tip">
     no any cource selected.
 </div>
 
-<div ng-show="selectedCources.length">
+<div ng-show="cources.length">
 
     <!--sumbit -->
-    <div class="clearfix">
-        <div class="btn btn-info align-right" ng-click="submit()">
-            <span class="glyphicon glyphicon-shopping-cart" ng-disabled="totalSelected<=0"></span>
-            <em> Cost {{totalCost | currency}} for {{totalSelected}} Cources</em>
+    <div class="clearfix btn-right">
+        <div class="btn btn-primary align-right" ng-click="enrollAll()">
+            <!--<span class="glyphicon glyphicon-shopping-cart" ng-disabled="!(cources.length)"></span>-->
+            <em> Enroll {{cources.length}} Cources</em>
         </div>
     </div>
 
-    <div ng-repeat="cource in selectedCources" class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <cource-card cource="cource"></cource-card>
+    <div ng-repeat="cource in cources" class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <cource-card cource="cource" on-enroll="enroll(cource._id)"></cource-card>
     </div>
-
-    <!--cource reservation list-->
-    <!-- <div ng-repeat="cource in selectedCources" class="cource">
-         <p class="course-caption" ng-class="{'strikeout':!cource.isSelected}">{{cource['name']}}</p>
-
-         <span class="tag">{{cource['courseId']}} / {{cource['city']}} / {{cource['programType']}}</span>
-
-         <p class="cost">{{cource['cost'] |currency }}</p>
-
-         <div class="actions">
-             <a class="glyphicon btn"
-                ng-class="{true: 'glyphicon-remove btn-primary', false: 'glyphicon-ok btn-success'}[cource.isSelected]"
-                ng-click="toggle(cource._id)"></a>
-         </div>
-     </div>-->
 </div>
 

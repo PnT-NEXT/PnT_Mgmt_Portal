@@ -31,7 +31,8 @@
                             <li class="divider"></li>
                             <li><a href="/training/upload">Upload Quarter Training</a></li>
                             <li class="divider"></li>
-                            <li><a href="https://hpe.sabacloud.com/Saba/Web_spf/HPE/local/home" target="_blank">HPE University</a></li>
+                            <li><a href="https://hpe.sabacloud.com/Saba/Web_spf/HPE/local/home" target="_blank">HPE
+                                University</a></li>
                         </ul>
                     </li>
 
@@ -54,7 +55,7 @@
 
                 <!--user info-->
                 <div class="userinfo navbar-right">
-                    <span>COPRDOMAIN\COPRUSER</span>
+                    <strong ng-show="user.userName||user.NTAccount">{{user.userName}} ( {{user.NTAccount}} )</strong>
                 </div>
                 <!--end of user info-->
             </div>

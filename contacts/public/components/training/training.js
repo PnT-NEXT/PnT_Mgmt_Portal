@@ -37,7 +37,7 @@
             };
         })
 
-        .controller('CourcesController', function ($scope, $location, appSetting, TrainingFactory, SharedDataService) {
+        .controller('CourcesController', function ($scope, $location, appSetting, TrainingFactory, UserService) {
             $scope.cources = TrainingFactory.query(function (cources) {
                 $scope.hotCources = cources.slice(0, 6);  //top5 cources
                 $scope.fields = Object.keys(cources[0]);
@@ -67,61 +67,36 @@
 
             $scope.view = function (id) {
                 $location.url(appSetting.virtualDir + '/training/' + id);
-            }
+            };
 
-            $scope.checkout = function () {
-                function getSelected() {
-                    var selected = [];
-                    angular.forEach($scope.cources, function (obj, idx) {
-                        if (obj.isSelected) {
-                            selected.push(obj);
-                        }
-                    });
-                    return selected;
-                }
+            $scope.likeAll = function () {
+                var _ids = [];
+                angular.forEach($scope.cources, function (c) {
+                    if (c.isSelected) {
+                        _ids.push(c._id);
+                    }
+                });
 
-                SharedDataService.setSelectedCources(getSelected());
+                UserService.likeTraining(_ids);
                 $location.url(appSetting.virtualDir + '/training/cart');
-            }
+            };
         })
 
-        .controller('CartController', function ($scope, TrainingFactory, SharedDataService) {
-            $scope.selectedCources = SharedDataService.getSelectedCources();
+        .controller('CartController', function ($scope, UserService) {
 
-            checkSum = function () {
-                var sum = 0, selected = 0;
-                angular.forEach($scope.selectedCources, function (val, idx) {
-                    if (val.isSelected) {
-                        sum += Number(val.cost);
-                        selected++;
-                    }
-                });
-                $scope.totalCost = sum;
-                $scope.totalSelected = selected;
+            $scope.cources = UserService.getLikedTrainings();
+
+            $scope.enrollAll = function () {
+                var _ids = [];
+                angular.forEach($scope.cources, function (c) {
+                    _ids.push(c._id);
+                })
+                UserService.enrollTraining(_ids);
             };
 
-            $scope.submit = function () {
-                //var selected = [];
-                angular.forEach($scope.selectedCources, function (val, idx) {
-                    if (val.isSelected) {
-                        //selected.push(val);
-                        val.city='HongHong';
-                        TrainingFactory.update(val);
-                    }
-                });
-                //TrainingFactory.bulkUpdate(selected);
-            };
-
-            $scope.toggle = function (id) {
-                angular.forEach($scope.selectedCources, function (val, idx) {
-                    if (val._id === id) {
-                        $scope.selectedCources[idx].isSelected = !$scope.selectedCources[idx].isSelected;
-                    }
-                });
-                checkSum();
-            };
-
-            checkSum();
+            $scope.enroll = function (_id) {
+                UserService.enrollTraining(_id);
+            }
         })
 
         .factory('TrainingFactory', function ($resource, appSetting) {
@@ -130,20 +105,5 @@
                     method: 'PUT', isArray: false
                 }
             });
-        })
-        .service('SharedDataService', function () {
-            var selectedCources = [],
-                getSelectedCources = function () {
-                    return selectedCources || []
-                },
-                setSelectedCources = function (cources) {
-                    selectedCources = cources || [];
-                };
-
-            return {
-                getSelectedCources: getSelectedCources,
-                setSelectedCources: setSelectedCources
-            };
-        })
-    ;
+        });
 })();
