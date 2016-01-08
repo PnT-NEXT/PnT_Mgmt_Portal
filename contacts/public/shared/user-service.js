@@ -44,11 +44,11 @@ angular.module('PnT_Portal')
                 var user = getUser();
 
                 angular.forEach(idArr, function (_id) {
-                    var cource = $filter('filter')(user.courseList, {_id: _id})[0];
+                    var cource = $filter('filter')(user.trainingList, {_id: _id})[0];
                     if (cource) {
                         cource.status = status;
                     } else {
-                        user.courseList.push({_id: _id, status: status});
+                        user.trainingList.push({_id: _id, status: status});
                     }
                 });
 
@@ -74,18 +74,18 @@ angular.module('PnT_Portal')
         /*get all interested training of current user*/
         this.getLikedTrainings = function () {
             var user = getUser();
-            var intrested = $filter('filter')(user.courseList, {status: 'interested'});
+            var intrested = $filter('filter')(user.trainingList, {status: 'interested'});
             return intrested;
         };
 
         /* this.enrollTraining = function (_id) {
          var api = callApi('user/:id', {id: '@_id'}, {update: {method: 'PUT'}});
          var user = getUser();
-         var cource = $filter('filter')(user.courseList, {_id: _id})[0];
+         var cource = $filter('filter')(user.trainingList, {_id: _id})[0];
          if (cource) {
          cource.status = 'reserved';
          } else {
-         user.courseList.push({_id: _id, status: 'reserved'});
+         user.trainingList.push({_id: _id, status: 'reserved'});
          }
          api.update(user);
          };*/
