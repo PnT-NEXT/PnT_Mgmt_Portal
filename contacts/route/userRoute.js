@@ -14,7 +14,7 @@ router
         });
     });
 
-router    
+router
     .use(bodyParser.json())
     .param('id', function (req, res, next) {
         req.dbQuery = {
@@ -28,13 +28,13 @@ router
             // load the traning list based on user course Id collection
             // and set to user courseDetailInformation
             if (docs)  {
-                if (docs.courseList.length > 0) {
-                    var idCollection = _.map(docs.courseList, util.toMongoId);
+                if (docs.trainingList.length > 0) {
+                    var idCollection = _.map(docs.trainingList, util.toMongoId);
                     var query = {
                         _id: {$in: idCollection}
                     };
                     model.trainings.find(query, function (err, courseDetailData) {
-                        docs.courseDetailList = courseDetailData;
+                        docs.trainingList = courseDetailData;
                         res.json(docs);
                     });
                 } else {
@@ -50,7 +50,13 @@ router
         delete user._id;
         delete user.$promise;
         delete user.$resolved;
-        delete user.courseDetailList;
+        _.each(user.trainingList, function (val) {
+            for (var prop in val) {
+                if (prop != '_id' && prop != 'status') {
+                    delete val[prop];
+                }
+            }
+        });
         model.users.update(req.dbQuery, user, function(err, result) {
             res.json(result);
         });

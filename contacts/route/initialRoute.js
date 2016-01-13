@@ -15,13 +15,13 @@ router
             if (docs) {
                 // load the traning list based on user course id collection
                 // and set to user courseDetailInformation
-                var idCollection = _.map(docs.courseList, util.toMongoId);
+                var idCollection = _.map(docs.trainingList, util.toMongoId);
                 if (idCollection.length > 0) {                    
                     var query = {
                         _id: {$in: idCollection}
                     };
                     model.trainings.find(query, function (err, courseDetailData) {
-                        docs.courseDetailList = courseDetailData;
+                        docs.trainingList = courseDetailData;
                         res.json(docs);
                     });
                 } else {
@@ -33,7 +33,7 @@ router
                     region: config.userRegion,
                     userName: config.userName,
                     email: config.email,
-                    courseList: []
+                    trainingList: []
                 };
 
                 model.users.insert(user, function (err, docs) {
