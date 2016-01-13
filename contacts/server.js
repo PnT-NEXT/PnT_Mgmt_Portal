@@ -1,6 +1,6 @@
 var util            = require('./helper/util');
     util.mkdir('uploads/');
-process.env.NODE_ENV = 'dev';
+
 var express         = require('express'),
     app             = express(),
     config          = require('./config'),

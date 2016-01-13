@@ -20,14 +20,8 @@ router
                     var query = {
                         _id: {$in: idCollection}
                     };
-                    model.trainings.find(query, function (err, trainingDetailList) {
-                        _.each(trainingDetailList, function (val) {
-                            var tempTraining = _.find(docs.trainingList, {_id: val._id.toString()});
-                            if (tempTraining) {
-                                val.status = tempTraining.status;
-                            }
-                        });
-                        docs.trainingList = trainingDetailList;
+                    model.trainings.find(query, function (err, courseDetailData) {
+                        docs.trainingList = courseDetailData;
                         res.json(docs);
                     });
                 } else {
