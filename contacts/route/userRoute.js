@@ -10,7 +10,29 @@ router
     .route('/')
     .get(function (req, res) {
         model.users.findAll(function(err, docs) {
-            res.json(docs);
+            var updated = 0;
+            _.each(docs, function (user) {
+                if (user.trainingList.length > 0) {
+                    var idCollection = _.map(user.trainingList, util.toMongoId);
+                    var query = {
+                        _id: {$in: idCollection}
+                    };
+                    model.trainings.find(query, function (err, trainingDetailList) {
+                        _.each(trainingDetailList, function (val) {
+                            var tempTraining = _.find(user.trainingList, {_id: val._id.toString()});
+                            if (tempTraining) {
+                                val.status = tempTraining.status;
+                            }
+                        });
+                        user.trainingList = trainingDetailList;
+
+                        updated = updated + 1;
+                        if (updated === docs.length) {
+                            res.json(docs);
+                        }
+                    });
+                }
+            });
         });
     });
 
@@ -27,14 +49,20 @@ router
         model.users.findOne(req.dbQuery, function(err, docs) {
             // load the traning list based on user course Id collection
             // and set to user courseDetailInformation
-            if (docs)  {
+            if (docs) {
                 if (docs.trainingList.length > 0) {
                     var idCollection = _.map(docs.trainingList, util.toMongoId);
                     var query = {
                         _id: {$in: idCollection}
                     };
-                    model.trainings.find(query, function (err, courseDetailData) {
-                        docs.trainingList = courseDetailData;
+                    model.trainings.find(query, function (err, trainingDetailList) {
+                        _.each(trainingDetailList, function (val) {
+                            var tempTraining = _.find(docs.trainingList, {_id: val._id.toString()});
+                            if (tempTraining) {
+                                val.status = tempTraining.status;
+                            }
+                        });
+                        docs.trainingList = trainingDetailList;
                         res.json(docs);
                     });
                 } else {
@@ -52,7 +80,7 @@ router
         delete user.$resolved;
         _.each(user.trainingList, function (val) {
             for (var prop in val) {
-                if (prop != '_id' && prop != 'status') {
+                if (prop !== '_id' && prop !== 'status') {
                     delete val[prop];
                 }
             }
