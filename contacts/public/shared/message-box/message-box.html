@@ -1,0 +1,45 @@
+<style>
+.modal.fade.in .modal-body {
+    bottom: 0;
+    opacity: 1;
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+.modal-body {
+    position: absolute;
+    bottom: -250px;
+    right: 0%;
+    padding: 30px 15px 15px;
+    width: 275px;
+    height: 250px;
+    background-color: #e5e5e5;
+    border-radius: 6px 6px 0 0;
+    opacity: 0;
+    -webkit-transition: opacity 0.3s ease-out, bottom 0.3s ease-out;
+    -moz-transition: opacity 0.3s ease-out, bottom 0.3s ease-out;
+    -o-transition: opacity 0.3s ease-out, bottom 0.3s ease-out;
+    transition: opacity 0.3s ease-out, bottom 0.3s ease-out;
+}
+
+.close {
+    margin-top: -20px;
+    text-shadow: 0 1px 0 #ffffff;
+}
+
+.popup-button {
+    margin-left: 140px;
+    margin-top: 77px;
+    font-weight: bold;
+}
+</style>
+<div class="modal fade" id="slide-bottom-popup" data-keyboard="true" data-backdrop="false">
+    <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <p>This is a test message box placed at the bottom of the page!</p>
+        <a href="" class="btn-primary btn-plain btn popup-button">Just do it !</a>
+    </div>
+    <!-- /.modal-body -->
+</div>
+<!-- /.modal -->
+
