@@ -3,7 +3,7 @@
  * */
 
 (function () {
-    angular.module('PnT_Portal-training', ['ngRoute', 'PnT_Portal-widget'])
+    angular.module('PnT_Portal-training', ['ngRoute', 'PnT_Portal-widget','PnT_Portal-message'])
 
         .controller('UploadController', function ($scope, Upload, $timeout, appSetting) {
             $scope.upload = function (file) {
