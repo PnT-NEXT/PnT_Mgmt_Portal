@@ -1,0 +1,1 @@
+/*generic non-angualr js code fregments can be placed here.*/
