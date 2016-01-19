@@ -4,7 +4,8 @@ var express       = require('express'),
     _             = require('lodash'),
     excel         = require('xlsx'),
     model         = require('../model'),
-    fs            = require('fs');
+    fs            = require('fs'),
+    util          = require('../helper/util');
 
 router
     .route('/file')
@@ -91,7 +92,7 @@ router
     .use(bodyParser.json())
     .param('id', function (req, res, next) {
         req.dbQuery = {
-            courseId: req.params.id
+            _id: util.strToMongoId(req.params.id.toString())
         }; // here 10 means 10 base decimal system
         next();
     })
