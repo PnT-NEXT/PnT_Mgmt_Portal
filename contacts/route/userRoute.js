@@ -4,7 +4,9 @@ var express     = require('express'),
     _           = require('lodash'),
     util        = require('../helper/util'),
     model       = require('../model'),
-    config      = require('../config');
+    config      = require('../config'),
+    unirest     = require('unirest'),
+    logger      = require('../helper/logger');
 
 router
     .route('/')
@@ -78,16 +80,44 @@ router
         delete user._id;
         delete user.$promise;
         delete user.$resolved;
-        _.each(user.trainingList, function (val) {
-            for (var prop in val) {
-                if (prop !== '_id' && prop !== 'status') {
-                    delete val[prop];
+
+        if (user.trainingList.length > 0) {
+            var loopCount = 0;
+            _.each(user.trainingList, function (training) {
+                // unirest
+                //     .post('http://localhost:55705/Training/Add')
+                //     .headers({
+                //                 'Accept': 'application/json'
+                //             })
+                //     .send({ 
+                //             Name: user.userName,
+                //             Email: user.email,
+                //             TrainingName: training.name,
+                //             Comments: 'I like this training, and I need to have it to better doing my project.' })
+                //     .end(function (response) {
+                //         if (response.error) {
+                //             logger.error('Add training item to sharepoint error', response.error ? response.error.message : response.error, response.error ? response.error.stack : '')
+                //         }
+                //     });
+
+                if (++loopCount === user.trainingList.length) {
+                    _.each(user.trainingList, function (val) {
+                        for (var prop in val) {
+                            if (prop !== '_id' && prop !== 'status') {
+                                delete val[prop];
+                            }
+                        }
+                    });
+                    model.users.update(req.dbQuery, user, function(err, result) {
+                        res.json(result);
+                    });
                 }
-            }
-        });
-        model.users.update(req.dbQuery, user, function(err, result) {
-            res.json(result);
-        });
+            });
+        } else {
+            model.users.update(req.dbQuery, user, function(err, result) {
+                res.json(result);
+            });
+        }        
     })
     .delete(function (req, res) {
         model.users.remove(req.dbQuery, true, function(err, result) {
