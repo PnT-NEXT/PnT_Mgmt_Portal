@@ -80,6 +80,9 @@
                 UserService.likeTraining(_ids);
                 $location.url(appSetting.virtualDir + '/training/cart');
             };
+            $scope.$watch("cources | filter : query | orderBy: predicate : sort.order", function(newVal) {
+                $scope.filteredCources = newVal;
+            }, true);
         })
 
         .controller('CartController', function ($scope, UserService) {
