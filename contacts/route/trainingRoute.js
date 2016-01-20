@@ -83,8 +83,34 @@ router
 router
     .route('/')
     .get(function (req, res) {
-        model.trainings.findAll(function (err, data) {
-            res.json(data);
+        var loopCount = 0;
+        model.trainings.findAll(function (err, trainingList) {
+            _.each(trainingList, function (training) {
+                var query = {
+                    trainingList: {
+                        $elemMatch: {
+                            _id: training._id.toString()
+                        }
+                    }
+                };
+
+                model.users.find(query, function (err, userList) {
+                    if (userList) {
+                        _.each(userList, function (user) {
+                            _.each(user, function (val, key) {
+                                if (key !== '_id' && key !== 'NTAccount' && key !== 'userName') {
+                                    delete user[key];
+                                }
+                            });
+                        });
+                        training.userList = userList;
+                    }
+
+                    if (++loopCount === trainingList.length) {
+                        res.json(trainingList);
+                    }
+                });
+            });
         });
     });
 
