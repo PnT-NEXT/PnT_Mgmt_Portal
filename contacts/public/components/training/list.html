@@ -63,7 +63,7 @@
                                 selected-count="selectedCources"></multi-checkbox>
             </th>
             <th ng-repeat="field in fields" ng-click="sort(field)"
-                style="vertical-align: middle;font-weight: bold; text-align: center" ng-hide="$first">{{field}}
+                style="vertical-align: middle;font-weight: bold; text-align: center">{{field}}
             </th>
         </tr>
         </thead>
@@ -72,7 +72,7 @@
         <tr ng-repeat="cource in cources | filter : query | orderBy: predicate : sort.order">
             <!--ng-click="view(cource._id)"-->
             <td><input type="checkbox" ng-model="cource.isSelected"></td>
-            <td ng-repeat="field in fields" ng-hide="$first">
+            <td ng-repeat="field in fields">
                 {{ cource[field]}}
             </td>
         </tr>

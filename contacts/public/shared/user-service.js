@@ -3,7 +3,7 @@
  */
 
 angular.module('PnT_Portal')
-    .service('UserService', function ($resource, $rootScope, $filter, appSetting) {
+    .service('UserService', function ($resource, $rootScope, $filter, $q, appSetting) {
 
         var callApi = function (url, params, actions) {
             return $resource(appSetting.virtualDir + '/api/' + url, params, actions);
@@ -22,6 +22,14 @@ angular.module('PnT_Portal')
             return arr;
         };
 
+        var getTraining = function (_id) {
+            var d = $q.defer();
+            var result = callApi('training/:id').get({id: _id}, function () {
+                d.resolve(result);
+            });
+            return d.promise;
+        };
+
         var getUser = function () {
             return $rootScope.user;
         };
@@ -37,28 +45,40 @@ angular.module('PnT_Portal')
         };
 
         /*update user training status for specified id list*/
-        var updateTrainingStatus = function (_ids, status) {
+        var updateTrainingStatus = function (_ids, status, onCompleted) {
             var idArr = arg2Arr(_ids);
             if (idArr.length > 0) {
                 var api = callApi('user/:id', {id: '@_id'}, {update: {method: 'PUT'}});
                 var user = getUser();
 
+                var promises = [];
                 angular.forEach(idArr, function (_id) {
-                    var cource = $filter('filter')(user.trainingList, {_id: _id})[0];
-                    if (cource) {
-                        cource.status = status;
+                    var training = $filter('filter')(user.trainingList, {_id: _id})[0];
+                    if (training) {
+                        training.status = status;
                     } else {
-                        user.trainingList.push({_id: _id, status: status});
+                        promises.push(getTraining(_id));
                     }
                 });
-
-                api.update(user);
+                $q.all(promises).then(function (data) {
+                    if (angular.isArray(data)) {
+                        angular.forEach(data, function (obj) {
+                            obj.status = status;
+                            user.trainingList.push(obj);
+                        });
+                    }
+                    api.update(user);
+                    //fire onCompleted callback
+                    if (angular.isFunction(onCompleted)) {
+                        onCompleted();
+                    }
+                });
             }
         };
 
         /*marke training as 'intrested'*/
-        this.likeTraining = function (_ids) {
-            updateTrainingStatus(_ids, 'interested');
+        this.likeTraining = function (_ids, onCompleted) {
+            updateTrainingStatus(_ids, 'interested', onCompleted);
         };
 
         /* marke training as 'not-intrested'*/

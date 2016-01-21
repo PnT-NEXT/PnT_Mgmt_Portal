@@ -3,7 +3,7 @@
  * */
 
 (function () {
-    angular.module('PnT_Portal-training', ['ngRoute', 'PnT_Portal-widget','PnT_Portal-message'])
+    angular.module('PnT_Portal-training', ['ngRoute', 'PnT_Portal-widget', 'PnT_Portal-message'])
 
         .controller('UploadController', function ($scope, Upload, $timeout, appSetting) {
             $scope.upload = function (file) {
@@ -41,6 +41,7 @@
             $scope.cources = TrainingFactory.query(function (cources) {
                 $scope.hotCources = cources.slice(0, 6);  //top5 cources
                 $scope.fields = Object.keys(cources[0]);
+                $scope.fields = ['name', 'courseId', 'programType', 'duration', 'city', 'seat', 'instructor'];
                 $scope.sort.order = true;
                 $scope.sort('name');
             });
@@ -77,10 +78,12 @@
                     }
                 });
 
-                UserService.likeTraining(_ids);
-                $location.url(appSetting.virtualDir + '/training/cart');
+                UserService.likeTraining(_ids, function () {
+                    $location.url(appSetting.virtualDir + '/training/cart');
+                });
             };
-            $scope.$watch("cources | filter : query | orderBy: predicate : sort.order", function(newVal) {
+
+            $scope.$watch("cources | filter : query | orderBy: predicate : sort.order", function (newVal) {
                 $scope.filteredCources = newVal;
             }, true);
         })
