@@ -1,6 +1,6 @@
 var util            = require('./helper/util');
     util.mkdir('uploads/');
-process.env.NODE_ENV = 'dev';
+
 var express         = require('express'),
     app             = express(),
     config          = require('./config'),
@@ -51,6 +51,9 @@ app
         res.sendfile('public/main.html');
     })
     .get(config.virtualDir + '/training/cart', function (req, res) {
+        res.sendfile('public/main.html');
+    })
+    .get(config.virtualDir + '/training/assign', function (req, res) {
         res.sendfile('public/main.html');
     });
 
