@@ -33,7 +33,7 @@ header .header-search {
 
 header .userinfo {
     text-align: right;
-    margin-top: 16px;
+    /*margin-top: 16px;*/
     text-transform: uppercase;
 }
 

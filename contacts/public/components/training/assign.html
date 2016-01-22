@@ -1,0 +1,90 @@
+<style>
+    .tr-item {
+        /*width: 260px;*/
+        margin: 5px 0px;
+        padding: 5px;
+        background: white !important;
+        -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+        /*display: inline-block;*/
+    }
+
+    .tr-item .tr-info .tr-title {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        font-size: 18px;
+        /*font-weight: bold;*/
+        color: #444444 !important;
+    }
+
+    .tr-item .tr-user-row {
+        display: flex;
+    }
+
+    .tr-item .tr-user {
+        height: 50px;
+        display: inline-block;
+        width: 50px;
+        background-color: #6ad2cf;
+        margin: 5px;
+    }
+
+    .tr-item .tr-info p, .tr-item .tr-info small, .tr-item .tr-info span {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+    }
+
+    .tr-item .tr-actions {
+        position: absolute;
+        bottom: 15px;
+        text-align: right;
+        right: 30px;
+    }
+
+    .tr-item .tr-actions .btn {
+        -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+        box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.4);
+        margin-left: 5px;
+    }
+
+</style>
+
+<div>
+    <div id="trainingSection" class="col-lg-8">
+        <input type="search" placeholder="search training" class="form-control" ng-model="trainingQuery"/>
+
+        <div ng-repeat='tr in trainings | filter : trainingQuery | orderBy: predicate' class="tr-item row"
+             draggable="true">
+            <div class="col-lg-5">
+                <p class="tr-title">{{tr.name}}</p>
+                <span class="tr-info">{{tr.courseId}} | {{tr.programType}}</span>
+            </div>
+            <ul class="col-lg-7 tr-user-row">
+                <li ng-repeat='ur in tr.userList' class="tr-user">
+                    {{ur.userName}}
+            </ul>
+        </div>
+    </div>
+
+    <div id="userSection" class="col-lg-4">
+        <input type="search" placeholder="search user" class="form-control" ng-model="userQuery"/>
+
+        <div ng-repeat=' ur in users | filter : userQuery' class="tr-item" draggable="true">
+            <p class="tr-user pull-right">{{ur.userName}}</p>
+
+            <p>
+                <span class="glyphicon glyphicon-blackboard"></span>
+                Already Taken: {{getUserTaken(ur)}}
+            </p>
+
+            <p>
+                <span class="glyphicon glyphicon-heart"></span>
+                Intrested In: {{getUserLiked(ur)}}
+            </p>
+        </div>
+    </div>
+</div>
