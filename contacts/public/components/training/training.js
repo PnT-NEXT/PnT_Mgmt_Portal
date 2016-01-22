@@ -37,8 +37,8 @@
             };
         })
 
-        .controller('CourcesController', function ($scope, $location, appSetting, TrainingFactory, UserService) {
-            $scope.cources = TrainingFactory.query(function (cources) {
+        .controller('TrainingsController', function ($scope, $location, appSetting, TrainingService, UserService) {
+            $scope.cources = TrainingService.getFactory().query(function (cources) {
                 $scope.hotCources = cources.slice(0, 6);  //top5 cources
                 $scope.fields = Object.keys(cources[0]);
                 $scope.fields = ['name', 'courseId', 'programType', 'duration', 'city', 'seat', 'instructor'];
@@ -102,14 +102,23 @@
 
             $scope.enroll = function (_id) {
                 UserService.enrollTraining(_id);
-            }
+            };
         })
 
-        .factory('TrainingFactory', function ($resource, appSetting) {
-            return $resource(appSetting.virtualDir + '/api/training/:id', {id: '@_id'}, {
-                update: {
-                    method: 'PUT', isArray: false
-                }
-            });
+        .controller('AssignmentController', function ($scope, $filter, TrainingService, UserService) {
+            $scope.trainings = TrainingService.getAllTrainings();
+            $scope.users = UserService.getAllUsers();
+
+            $scope.predicate = function (rows) {
+                return rows['name'];
+            }
+
+            $scope.getUserLiked = function (user) {
+                return $filter('filter')(user.trainingList, {status: 'interested'}).length;
+            };
+
+            $scope.getUserTaken = function (user) {
+                return $filter('filter')(user.trainingList, {status: 'reserved'}).length;
+            };
         });
 })();

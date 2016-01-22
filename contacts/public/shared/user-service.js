@@ -30,18 +30,27 @@ angular.module('PnT_Portal')
             return d.promise;
         };
 
-        var getUser = function () {
+        var getCurrentUser = function () {
             return $rootScope.user;
         };
 
-        var setUser = function (user) {
+        var setCurrentUser = function (user) {
             $rootScope.user = user;
         };
 
+
         this.initialize = function () {
             callApi('init').get({}, function (data) {
-                setUser(data);
+                setCurrentUser(data);
             });
+
+            callApi('user').query(function (users) {
+                $rootScope.users = users;
+            })
+        };
+
+        this.getAllUsers = function () {
+            return $rootScope.users;
         };
 
         /*update user training status for specified id list*/
@@ -49,7 +58,7 @@ angular.module('PnT_Portal')
             var idArr = arg2Arr(_ids);
             if (idArr.length > 0) {
                 var api = callApi('user/:id', {id: '@_id'}, {update: {method: 'PUT'}});
-                var user = getUser();
+                var user = getCurrentUser();
 
                 var promises = [];
                 angular.forEach(idArr, function (_id) {
@@ -60,11 +69,11 @@ angular.module('PnT_Portal')
                         promises.push(getTraining(_id));
                     }
                 });
-                $q.all(promises).then(function (data) {
-                    if (angular.isArray(data)) {
-                        angular.forEach(data, function (obj) {
-                            obj.status = status;
-                            user.trainingList.push(obj);
+                $q.all(promises).then(function (trainingArr) {
+                    if (angular.isArray(trainingArr)) {
+                        angular.forEach(trainingArr, function (training) {
+                            training.status = status;
+                            user.trainingList.push(training);
                         });
                     }
                     api.update(user);
@@ -93,14 +102,14 @@ angular.module('PnT_Portal')
 
         /*get all interested training of current user*/
         this.getLikedTrainings = function () {
-            var user = getUser();
+            var user = getCurrentUser();
             var intrested = $filter('filter')(user.trainingList, {status: 'interested'});
             return intrested;
         };
 
         /* this.enrollTraining = function (_id) {
          var api = callApi('user/:id', {id: '@_id'}, {update: {method: 'PUT'}});
-         var user = getUser();
+         var user = getCurrentUser();
          var cource = $filter('filter')(user.trainingList, {_id: _id})[0];
          if (cource) {
          cource.status = 'reserved';

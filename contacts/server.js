@@ -1,15 +1,15 @@
-var util            = require('./helper/util');
-    util.mkdir('uploads/');
+var util = require('./helper/util');
+util.mkdir('uploads/');
 
-var express         = require('express'),
-    app             = express(),
-    config          = require('./config'),
-    logger          = require('./helper/logger'),
-    initialRoute    = require('./route/initialRoute'),
-    trainingRoute   = require('./route/trainingRoute'),
-    userRoute       = require('./route/userRoute'),
+var express = require('express'),
+    app = express(),
+    config = require('./config'),
+    logger = require('./helper/logger'),
+    initialRoute = require('./route/initialRoute'),
+    trainingRoute = require('./route/trainingRoute'),
+    userRoute = require('./route/userRoute'),
 
-    // upload file variables starts
+// upload file variables starts
     multer = require('multer'),
     storage = multer.diskStorage({
         destination: function (req, file, cb) {

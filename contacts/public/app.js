@@ -14,7 +14,7 @@ angular.module('PnT_Portal', ['ngRoute', 'ngResource', 'ngMessages', 'ngFileUplo
                 templateUrl: 'components/contact/new.html'
             })
             .when(appSetting.virtualDir + '/training', {
-                controller: 'CourcesController',
+                controller: 'TrainingsController',
                 templateUrl: 'components/training/list.html'
             })
             .when(appSetting.virtualDir + '/training/upload', {
@@ -25,6 +25,10 @@ angular.module('PnT_Portal', ['ngRoute', 'ngResource', 'ngMessages', 'ngFileUplo
                 controller: 'CartController',
                 templateUrl: 'components/training/cart.html'
             })
+            .when(appSetting.virtualDir + '/training/assign', {
+                controller: 'AssignmentController',
+                templateUrl: 'components/training/assign.html'
+            })
             /* route to training list as default.*/
             .when(appSetting.virtualDir + '/', {
                 redirectTo: "/training"
@@ -33,11 +37,12 @@ angular.module('PnT_Portal', ['ngRoute', 'ngResource', 'ngMessages', 'ngFileUplo
         $locationProvider.html5Mode(true);
     })
 
-    .run(function ($rootScope, UserService) {
+    .run(function ($rootScope, UserService, TrainingService) {
         /* set page title on route changes*/
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
             $rootScope.title = current.$$route.originalPath.replace(/\//g, '-').toUpperCase();
         });
 
         UserService.initialize();
+        TrainingService.initialize();
     });
