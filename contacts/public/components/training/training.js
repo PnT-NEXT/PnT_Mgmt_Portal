@@ -3,7 +3,7 @@
  * */
 
 (function () {
-    angular.module('PnT_Portal-training', ['ngRoute', 'PnT_Portal-widget', 'PnT_Portal-message'])
+    angular.module('PnT_Portal-training', ['ngRoute', 'ngDraggable', 'PnT_Portal-widget', 'PnT_Portal-message'])
 
         .controller('UploadController', function ($scope, Upload, $timeout, appSetting) {
             $scope.upload = function (file) {
@@ -120,5 +120,12 @@
             $scope.getUserTaken = function (user) {
                 return $filter('filter')(user.trainingList, {status: 'reserved'}).length;
             };
+
+            $scope.onDragComplete = function (data, evt) {
+                console.log("drag success, data:", data);
+            }
+            $scope.onDropComplete = function (data, evt) {
+                console.log("drop success, data:", data);
+            }
         });
 })();

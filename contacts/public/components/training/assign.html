@@ -23,11 +23,30 @@
         display: flex;
     }
 
+    .tr-item .tr-user-avatar {
+        float: right;
+        margin-top: 6px;
+        margin-right: 6px;
+    }
+
+    [ng-drop].drag-enter {
+        border: solid 1px #00c6ff;
+    }
+
+    [ng-drag].drag-over {
+        border: solid 1px #00c6ff;
+    }
+
+    [ng-drag].dragging {
+        opacity: 0.5;
+        position: relative;
+    }
+
     .tr-item .tr-user {
         height: 50px;
         display: inline-block;
         width: 50px;
-        background-color: #6ad2cf;
+        /*background-color: #6ad2cf;*/
         margin: 5px;
     }
 
@@ -58,14 +77,16 @@
         <input type="search" placeholder="search training" class="form-control" ng-model="trainingQuery"/>
 
         <div ng-repeat='tr in trainings | filter : trainingQuery | orderBy: predicate' class="tr-item row"
-             draggable="true">
+             ng-drop="true" ng-drop-success="onDropComplete($data,$event)">
             <div class="col-lg-5">
                 <p class="tr-title">{{tr.name}}</p>
                 <span class="tr-info">{{tr.courseId}} | {{tr.programType}}</span>
             </div>
             <ul class="col-lg-7 tr-user-row">
                 <li ng-repeat='ur in tr.userList' class="tr-user">
-                    {{ur.userName}}
+                    <div class="tr-user-avatar">
+                        <user-avatar user-id="{{ur._id}}" user-name="{{ur.userName}}" px-size="50"></user-avatar>
+                    </div>
             </ul>
         </div>
     </div>
@@ -73,8 +94,12 @@
     <div id="userSection" class="col-lg-4">
         <input type="search" placeholder="search user" class="form-control" ng-model="userQuery"/>
 
-        <div ng-repeat=' ur in users | filter : userQuery' class="tr-item" draggable="true">
-            <p class="tr-user pull-right">{{ur.userName}}</p>
+        <div ng-repeat=' ur in users | filter : userQuery' class="tr-item"
+             ng-drag="true" ng-drag-data="ur" ng-if="true" ng-drag-success="onDragComplete($data,$event)">
+            <!--<p class="tr-user pull-right">{{ur.userName}}</p>-->
+            <div class="tr-user-avatar">
+                <user-avatar user-id="{{ur._id}}" user-name="{{ur.userName}}" px-size="60"></user-avatar>
+            </div>
 
             <p>
                 <span class="glyphicon glyphicon-blackboard"></span>
