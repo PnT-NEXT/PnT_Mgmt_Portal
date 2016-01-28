@@ -122,10 +122,17 @@
             };
 
             $scope.onDragComplete = function (data, evt) {
-                console.log("drag success, data:", data);
+                //TrainingService.assignTrainingToUser()
             }
-            $scope.onDropComplete = function (data, evt) {
+
+            $scope.onDropComplete = function (data, training) {
                 console.log("drop success, data:", data);
+
+                if (data && training) {
+                    TrainingService.assignTrainingToUser(training._id, data);
+
+                    //todo: should also be post to database at service side.
+                }
             }
         });
 })();

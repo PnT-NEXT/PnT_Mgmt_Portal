@@ -23,6 +23,21 @@ angular.module('PnT_Portal')
             return getTrainings();
         };
 
+        this.assignTrainingToUser = function (trainingId, userData) {
+            var trainings = getTrainings();
+            var training = $filter('filter')(trainings, {_id: trainingId})[0];
+            if (training) {
+                var user = $filter('filter')(training.userList, {_id: userData._id})[0];
+                if (!user) {
+                    training.userList.push({
+                        _id: userData._id,
+                        NTAccount: userData.NTAccount,
+                        userName: userData.userName
+                    });
+                }
+            }
+        };
+
         this.getFactory = function () {
             return callApi('training/:id', {id: '@_id'}, {
                 update: {
