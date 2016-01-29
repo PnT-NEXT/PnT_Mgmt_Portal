@@ -23,6 +23,10 @@ angular.module('PnT_Portal')
             return getTrainings();
         };
 
+        this.getTraining = function (trainingId) {
+            return $filter('filter')(trainings, {_id: trainingId})[0];
+        };
+
         this.assignTrainingToUser = function (trainingId, userData) {
             var trainings = getTrainings();
             var training = $filter('filter')(trainings, {_id: trainingId})[0];
