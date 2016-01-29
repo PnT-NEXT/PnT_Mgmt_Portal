@@ -3,7 +3,7 @@
  * */
 
 (function () {
-    angular.module('PnT_Portal-training', ['ngRoute', 'PnT_Portal-widget', 'PnT_Portal-message'])
+    angular.module('PnT_Portal-training', ['ngRoute', 'ngDraggable', 'PnT_Portal-widget', 'PnT_Portal-message'])
 
         .controller('UploadController', function ($scope, Upload, $timeout, appSetting) {
             $scope.upload = function (file) {
@@ -120,5 +120,19 @@
             $scope.getUserTaken = function (user) {
                 return $filter('filter')(user.trainingList, {status: 'reserved'}).length;
             };
+
+            $scope.onDragComplete = function (data, evt) {
+                //TrainingService.assignTrainingToUser()
+            }
+
+            $scope.onDropComplete = function (data, training) {
+                console.log("drop success, data:", data);
+
+                if (data && training) {
+                    TrainingService.assignTrainingToUser(training._id, data);
+
+                    //todo: should also be post to database at service side.
+                }
+            }
         });
 })();

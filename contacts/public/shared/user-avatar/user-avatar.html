@@ -42,8 +42,8 @@
 </style>
 
 <div class="avatar-item" ng-mouseenter="isolatedMouseHover()" ng-mouseleave="isolatedMouseLeave()">
-    <button type="button" class="close" ng-click="isolatedDelete(userId)">×</button>
+    <!--<button type="button" class="close" ng-click="isolatedDelete(userId)">×</button>-->
     <div class="avatar-container" ng-style="{width:pxSize,height:pxSize,borderColor:rndColor}">
-        <span class="avatar-text" ng-style="{color:rndColor,fontSize:(pxSize*0.6)}">{{name}}</span>
+        <span class="avatar-text" ng-style="{color:rndColor,fontSize:(pxSize/name.length)}">{{name}}</span>
     </div>
 </div>

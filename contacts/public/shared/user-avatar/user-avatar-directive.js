@@ -22,7 +22,20 @@ angular.module('PnT_Portal-widget')
 
             controller: function ($scope) {
                 $scope.rndColor = randomColor({hue: 'blue'});
-                $scope.name = $scope.userName.substring(0, 1);
+
+                var shortUserName = function (name) {
+                    var nameSlices = name.split(/[ \(.,\)]+/).slice(0, 3);
+                    var shortedName = "";
+                    angular.forEach(nameSlices, function (s) {
+                        if (s) {
+                            shortedName += s[0];
+                        }
+                    });
+                    return shortedName;
+                };
+
+                $scope.name = shortUserName($scope.userName);
+
                 $scope.showDelete = false;
 
                 if (!$scope.pxSize || (Number($scope.pxSize) <= 50)) {
