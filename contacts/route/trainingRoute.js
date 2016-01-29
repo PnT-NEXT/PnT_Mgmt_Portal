@@ -124,8 +124,31 @@ router
     })
     .route('/:id')
     .get(function (req, res) {
-        model.trainings.findOne(req.dbQuery, function (err, data) {
-            res.json(data);
+        model.trainings.findOne(req.dbQuery, function (err, training) {
+            if (training) {
+                var query = {
+                    trainingList: {
+                        $elemMatch: {
+                            _id: training._id.toString()
+                        }
+                    }
+                };
+
+                model.users.find(query, function (err, userList) {
+                    if (userList) {
+                        _.each(userList, function (user) {
+                            _.each(user, function (val, key) {
+                                if (key !== '_id' && key !== 'NTAccount' && key !== 'userName') {
+                                    delete user[key];
+                                }
+                            });
+                        });
+                        training.userList = userList;
+                    }
+
+                    res.json(training);
+                });
+            }
         });
     })
     .delete(function (req, res) {
