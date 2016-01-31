@@ -107,6 +107,11 @@ angular.module('PnT_Portal')
             return intrested;
         };
 
+        this.updateUser = function (user) {
+            var api = callApi('user/:id', {id: '@_id'}, {update: {method: 'PUT'}});
+            api.update(user);
+        };
+
         /* this.enrollTraining = function (_id) {
          var api = callApi('user/:id', {id: '@_id'}, {update: {method: 'PUT'}});
          var user = getCurrentUser();

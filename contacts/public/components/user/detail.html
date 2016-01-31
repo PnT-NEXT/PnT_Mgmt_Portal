@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-md-5">
+        <div style="position: relative;">
+            <img src="{{userImageUrl}}" style="width: 100%; height: 400px;">
+            <!-- <h5 style="position: absolute; bottom: 0; right: 0; padding: 8px 20px; margin-bottom: 0; color: #000000;">{{user.email}}</h5> -->
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div style="border: 1px solid #f7f7f0; height: 400px; overflow:hidden; padding-bottom: 60px; padding-left: 60px; padding-top: 60px; position: relative; font-size: 24px;">
+            <h4><span class="label label-primary" style="position:absolute; top: 0px; left: 0px;">Dev</span></h4>
+            <p>
+                Name: <strong>{{user.userName}}</strong>
+            </p>
+            <p>
+                Region: <strong>{{user.region}}</strong>
+            </p>
+            <p>
+                Domain Account: <strong>{{user.NTAccount}}</strong>
+            </p>
+            <p>
+                Email: <strong>{{user.email}}</strong>
+            </p>
+        </div>
+    </div>
+</div>
+<hr>
+<h4>Trainings Interested:</h4>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="col-md-4" style="height:400px; margin: 5px 0px" ng-repeat="training in user.trainingList">
+            <div class="thumbnail">
+                <img src="http://placehold.it/310x200/fcf8e3?text=training image" alt="">
+                <div class="caption">
+                    <p>
+                        <strong>Training Id: </strong> {{training.courseId}}
+                    </p>
+                    <p>{{training.name}}</p>
+                    <p>
+                        <button class="btn btn-danger" ng-click="deleteTraining(training._id);">Delete</button>                    
+                    </p>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>

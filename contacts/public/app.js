@@ -1,6 +1,6 @@
 /*add user-defined modules here as dependency here for app.*/
 
-angular.module('PnT_Portal', ['ngRoute', 'ngResource', 'ngMessages', 'ngFileUpload', 'PnT_Portal-contact', 'PnT_Portal-training'])
+angular.module('PnT_Portal', ['ngRoute', 'ngResource', 'ngMessages', 'ngFileUpload', 'PnT_Portal-contact', 'PnT_Portal-training', 'PnT_Portal-user'])
     .constant('appSetting', {virtualDir: '', serverPort: '3000'})
     //.constant('appSetting', { virtualDir: '/node/contacts/server.js', serverPort: '80' }) // deploy IIS config
     .config(function ($routeProvider, $locationProvider, appSetting) {
@@ -28,6 +28,10 @@ angular.module('PnT_Portal', ['ngRoute', 'ngResource', 'ngMessages', 'ngFileUplo
             .when(appSetting.virtualDir + '/training/assign', {
                 controller: 'AssignmentController',
                 templateUrl: 'components/training/assign.html'
+            })
+            .when(appSetting.virtualDir + '/user/detail', {
+                controller: 'UserDetailController',
+                templateUrl: 'components/user/detail.html'
             })
             /* route to training list as default.*/
             .when(appSetting.virtualDir + '/', {
