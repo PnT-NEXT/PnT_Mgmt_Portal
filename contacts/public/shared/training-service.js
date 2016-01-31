@@ -17,6 +17,11 @@ angular.module('PnT_Portal')
             return $filter('filter')(_getTrainings(), {_id: trainingId})[0];
         };
 
+        var _updateTraining = function (training) {
+            var api = _callApi('training/:id', {id: '@_id'}, {update: {method: 'PUT'}});
+            api.update(training);
+        };
+
         this.initialize = function () {
             _callApi('training').query(function (resp) {
                 _setTrainings(resp);
@@ -41,6 +46,7 @@ angular.module('PnT_Portal')
                         NTAccount: userData.NTAccount,
                         userName: userData.userName
                     });
+                    _updateTraining(training);
                 }
             }
         };
@@ -52,6 +58,7 @@ angular.module('PnT_Portal')
                 if (user) {
                     training.userList.splice(training.userList.indexOf(user), 1);
                 }
+                _updateTraining(training);
             }
         };
 

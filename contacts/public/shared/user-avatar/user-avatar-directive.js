@@ -40,7 +40,6 @@ angular.module('PnT_Portal-widget')
                 $scope.name = shortUserName($scope.userName);
 
                 $scope.isolatedDelete = function (param) {
-                    console.log("delete avatar: " + param);
                     if (angular.isFunction($scope.onDelete)) {
                         $scope.onDelete({param: param});
                     }

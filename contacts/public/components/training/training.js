@@ -126,7 +126,6 @@
             };
 
             $scope.onDropComplete = function (user, training) {
-                console.log("drop success, data:", user);
                 if (user && training) {
                     TrainingService.assignTrainingToUser(training._id, user);
                 }
