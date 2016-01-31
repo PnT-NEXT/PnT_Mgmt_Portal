@@ -90,3 +90,114 @@ footer .glyphicon {
     line-height: 64px;
     margin: auto 20px;
 }
+
+/*beggining of cource-card style*/
+.cource-item {
+    /*width: 260px;*/
+    margin: 10px;
+    padding: 5px;
+    height: 320px;
+    background: white !important;
+    -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    /*display: inline-block;*/
+}
+
+.cource-item .cource-view {
+    background-color: #19b5e4;
+    margin: -5px;
+    height: 45%;
+    width: auto;
+    position: relative;
+}
+
+.cource-item .cource-more {
+    /*position: relative;*/
+    margin: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.cource-item .cource-rating {
+    position: absolute;
+    bottom: 0px;
+    right: 5px;
+}
+
+.cource-item .cource-info {
+    padding: 10px;
+    text-transform: capitalize;
+    line-height: 1.5em;
+    margin-bottom: -5px;
+}
+
+.cource-item .cource-info .cource-title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    font-size: 18px;
+    /*font-weight: bold;*/
+    color: #444444 !important;
+}
+
+.cource-item .cource-info p, .cource-item .cource-info small, .cource-item .cource-info span {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+
+.cource-item .cource-actions {
+    position: absolute;
+    bottom: 15px;
+    text-align: right;
+    right: 30px;
+}
+
+.cource-item .cource-actions .btn {
+    -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.4);
+    margin-left: 5px;
+}
+
+/*end of cource-card style*/
+
+/*beginning of user-avatar style*/
+.avatar-item {
+    display: inline-block;
+}
+
+.avatar-item .avatar-container {
+    display: block;
+    position: relative;
+    /*background: white !important;*/
+    -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    border-style: solid;
+    border-width: 2px;
+}
+
+.avatar-item .btn {
+    float: right;
+    top: -10px;
+    right: -10px;
+    color: #e51c23;
+}
+
+.avatar-item .avatar-container .avatar-text {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    color: white;
+    font-size: 30px;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+.avatar-item .avatar-container .avatar-img {
+
+}
+
+/*end of user-avatar style*/

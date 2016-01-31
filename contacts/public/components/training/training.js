@@ -111,7 +111,7 @@
 
             $scope.predicate = function (rows) {
                 return rows['name'];
-            }
+            };
 
             $scope.getUserLiked = function (user) {
                 return $filter('filter')(user.trainingList, {status: 'interested'}).length;
@@ -123,16 +123,19 @@
 
             $scope.onDragComplete = function (data, evt) {
                 //TrainingService.assignTrainingToUser()
-            }
+            };
 
-            $scope.onDropComplete = function (data, training) {
-                console.log("drop success, data:", data);
-
-                if (data && training) {
-                    TrainingService.assignTrainingToUser(training._id, data);
-
-                    //todo: should also be post to database at service side.
+            $scope.onDropComplete = function (user, training) {
+                console.log("drop success, data:", user);
+                if (user && training) {
+                    TrainingService.assignTrainingToUser(training._id, user);
                 }
-            }
+            };
+
+            $scope.onDeleteUser = function (user, training) {
+                if (user && training) {
+                    TrainingService.unassignTrainingToUser(training._id, user);
+                }
+            };
         });
 })();

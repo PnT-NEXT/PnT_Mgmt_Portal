@@ -7,7 +7,7 @@ angular.module('PnT_Portal-widget')
                 userName: '@',
                 canDelete: '@',
                 pxSize: '@',
-                onDelete: '='
+                onDelete: '&'
             },
 
             restrict: 'EA',
@@ -21,6 +21,10 @@ angular.module('PnT_Portal-widget')
             },
 
             controller: function ($scope) {
+                if (!$scope.pxSize || (Number($scope.pxSize) <= 50)) {
+                    $scope.pxSize = 50;
+                }
+
                 $scope.rndColor = randomColor({hue: 'blue'});
 
                 var shortUserName = function (name) {
@@ -33,25 +37,13 @@ angular.module('PnT_Portal-widget')
                     });
                     return shortedName;
                 };
-
                 $scope.name = shortUserName($scope.userName);
 
-                $scope.showDelete = false;
-
-                if (!$scope.pxSize || (Number($scope.pxSize) <= 50)) {
-                    $scope.pxSize = 50;
-                }
-
                 $scope.isolatedDelete = function (param) {
-                    $scope.onDelete({param: param});
-                };
-
-                $scope.isolatedMouseHover = function (param) {
-                    $scope.showDelete = $scope.canDelete;
-                };
-
-                $scope.isolatedMouseLeave = function (param) {
-                    $scope.showDelete = false;
+                    console.log("delete avatar: " + param);
+                    if (angular.isFunction($scope.onDelete)) {
+                        $scope.onDelete({param: param});
+                    }
                 };
             }
         };

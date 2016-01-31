@@ -1,35 +1,38 @@
 angular.module('PnT_Portal')
     .service('TrainingService', function ($resource, $rootScope, $filter, $q, appSetting) {
 
-        var callApi = function (url, params, actions) {
+        var _callApi = function (url, params, actions) {
             return $resource(appSetting.virtualDir + '/api/' + url, params, actions);
         };
 
-        var setTrainings = function (arr) {
+        var _setTrainings = function (arr) {
             $rootScope.trainings = arr;
         };
 
-        var getTrainings = function () {
+        var _getTrainings = function () {
             return $rootScope.trainings;
         };
 
+        var _getTrainingById = function (trainingId) {
+            return $filter('filter')(_getTrainings(), {_id: trainingId})[0];
+        };
+
         this.initialize = function () {
-            callApi('training').query(function (resp) {
-                setTrainings(resp);
+            _callApi('training').query(function (resp) {
+                _setTrainings(resp);
             });
         };
 
         this.getAllTrainings = function () {
-            return getTrainings();
+            return _getTrainings();
         };
 
         this.getTraining = function (trainingId) {
-            return $filter('filter')(trainings, {_id: trainingId})[0];
+            return _getTrainingById(trainingId);
         };
 
         this.assignTrainingToUser = function (trainingId, userData) {
-            var trainings = getTrainings();
-            var training = $filter('filter')(trainings, {_id: trainingId})[0];
+            var training = _getTrainingById(trainingId);
             if (training) {
                 var user = $filter('filter')(training.userList, {_id: userData._id})[0];
                 if (!user) {
@@ -42,8 +45,18 @@ angular.module('PnT_Portal')
             }
         };
 
+        this.unassignTrainingToUser = function (trainingId, userData) {
+            var training = _getTrainingById(trainingId);
+            if (training) {
+                var user = $filter('filter')(training.userList, {_id: userData._id})[0];
+                if (user) {
+                    training.userList.splice(training.userList.indexOf(user), 1);
+                }
+            }
+        };
+
         this.getFactory = function () {
-            return callApi('training/:id', {id: '@_id'}, {
+            return _callApi('training/:id', {id: '@_id'}, {
                 update: {
                     method: 'PUT', isArray: false
                 }
