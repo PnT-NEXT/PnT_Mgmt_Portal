@@ -110,7 +110,7 @@
             $scope.users = UserService.getAllUsers();
 
             $scope.predicate = function (rows) {
-                return rows['name'];
+                return rows['name', 'userName'];
             };
 
             $scope.getUserLiked = function (user) {

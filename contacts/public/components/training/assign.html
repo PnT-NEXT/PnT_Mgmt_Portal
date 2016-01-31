@@ -109,15 +109,13 @@
             <div class="tr-user-avatar">
                 <user-avatar user-id="{{ur._id}}" user-name="{{ur.userName}}" px-size="60"></user-avatar>
             </div>
-
             <p class="tr-drag-hide">
-                <span class="glyphicon glyphicon-blackboard"></span>
-                Already Taken: {{getUserTaken(ur)}}
+            <h5>{{ur.userName}}</h5>
             </p>
 
             <p class="tr-drag-hide">
-                <span class="glyphicon glyphicon-heart"></span>
-                Intrested In: {{getUserLiked(ur)}}
+                <span><span class="glyphicon glyphicon-blackboard"></span> Taken: {{getUserTaken(ur)}}</span>
+                <span><span class="glyphicon glyphicon-heart"></span> Intrested In: {{getUserLiked(ur)}}</span>
             </p>
         </div>
     </div>
