@@ -91,6 +91,33 @@ footer .glyphicon {
     margin: auto 20px;
 }
 
+/*beginning of standard theme colors*/
+color-default {
+    color: #ffffff;
+}
+
+color-primary {
+    color: #2196f3;
+}
+
+color-success {
+    color: #4caf50;
+}
+
+color-info {
+    color: #9c27b0;
+}
+
+color-warning {
+    color: #ff9800;
+}
+
+color-danger {
+    color: #e51c23;
+}
+
+/*end of standard theme colors*/
+
 /*beggining of cource-card style*/
 .cource-item {
     /*width: 260px;*/
