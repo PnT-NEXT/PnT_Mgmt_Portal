@@ -33,6 +33,11 @@ router
                             res.json(docs);
                         }
                     });
+                } else {
+                    updated = updated + 1;
+                    if (updated === docs.length) {
+                        res.json(docs);
+                    }
                 }
             });
         });

@@ -22,6 +22,11 @@ angular.module('PnT_Portal')
             api.update(training);
         };
 
+        var _updateUser = function (user) {
+            var api = _callApi('user/:id', {id: '@_id'}, {update: {method: 'PUT'}});
+            api.update(user);
+        };
+
         this.initialize = function () {
             _callApi('training').query(function (resp) {
                 _setTrainings(resp);

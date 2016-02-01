@@ -128,11 +128,19 @@
             $scope.onDropComplete = function (user, training) {
                 if (user && training) {
                     TrainingService.assignTrainingToUser(training._id, user);
+
+                    var tr = _.find(user.trainingList, {_id: training._id});
+                    if (!tr) {
+                        user.trainingList.push(training);
+                    }
+                    UserService.updateUser(user);
                 }
             };
 
             $scope.onDeleteUser = function (user, training) {
                 if (user && training) {
+                    _.remove(user.trainingList, {_id: training._id});
+                    UserService.updateUser(user);
                     TrainingService.unassignTrainingToUser(training._id, user);
                 }
             };
