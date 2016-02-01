@@ -83,7 +83,7 @@
         <div ng-repeat='tr in trainings | filter : trainingQuery | orderBy: predicate' class="tr-item row"
              ng-drop="true" ng-drop-success="onDropComplete($data, tr)">
             <div class="col-lg-5">
-                <p class="tr-title">{{tr.name}}</p>
+                <p class="tr-title"><a target="_blank" href="/training/detail/{{tr._id}}">{{tr.name}}</a></p>
                 <span class="tr-info">{{tr.courseId | uppercase }} | {{tr.programType}}</span>
             </div>
             <ul class="col-lg-7 tr-user-row">
@@ -94,7 +94,8 @@
                     </div>
                 </li>
                 <span ng-show="tr.userList.length>6">
-                    <a href="#" class="btn btn-sm btn-default glyphicon glyphicon-resize-full"/>
+                    <a href="/training/detail/{{tr._id}}" target="_blank"
+                       class="btn btn-sm btn-default glyphicon glyphicon-resize-full"/>
                 </span>
             </ul>
         </div>

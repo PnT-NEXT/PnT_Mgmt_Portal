@@ -25,7 +25,7 @@ angular.module('PnT_Portal-widget')
                     $scope.pxSize = 50;
                 }
 
-                $scope.rndColor = randomColor({hue: 'blue'});
+                $scope.rndColor = randomColor({hue: 'blue'}); //'gray';
 
                 var shortUserName = function (name) {
                     var nameSlices = name.split(/[ \(.,\-\)]+/).slice(0, 3);
@@ -35,7 +35,7 @@ angular.module('PnT_Portal-widget')
                             shortedName += s[0];
                         }
                     });
-                    return shortedName;
+                    return shortedName.toUpperCase();
                 };
                 $scope.name = shortUserName($scope.userName);
 
