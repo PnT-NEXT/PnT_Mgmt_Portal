@@ -14,7 +14,7 @@ router
         model.users.findAll(function(err, docs) {
             var updated = 0;
             _.each(docs, function (user) {
-                if (user.trainingList.length > 0) {
+                if (user.trainingList && user.trainingList.length > 0) {
                     var idCollection = _.map(user.trainingList, util.toMongoId);
                     var query = {
                         _id: {$in: idCollection}
@@ -86,7 +86,7 @@ router
         delete user.$promise;
         delete user.$resolved;
 
-        if (user.trainingList.length > 0) {
+        if (user.trainingList && user.trainingList.length > 0) {
             var loopCount = 0;
             _.each(user.trainingList, function (training) {
                 // unirest
