@@ -33,6 +33,10 @@ angular.module('PnT_Portal', ['ngRoute', 'ngResource', 'ngMessages', 'ngFileUplo
                 controller: 'UserDetailController',
                 templateUrl: 'components/user/detail.html'
             })
+            .when(appSetting.virtualDir + '/training/detail', {
+                controller: 'TrainingDetailController',
+                templateUrl: 'components/training/trainingDetail.html'
+            })
             /* route to training list as default.*/
             .when(appSetting.virtualDir + '/', {
                 redirectTo: "/training"
@@ -47,6 +51,6 @@ angular.module('PnT_Portal', ['ngRoute', 'ngResource', 'ngMessages', 'ngFileUplo
             $rootScope.title = current.$$route.originalPath.replace(/\//g, '-').toUpperCase();
         });
 
-        UserService.initialize();
         TrainingService.initialize();
+        UserService.initialize();
     });

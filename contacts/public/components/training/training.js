@@ -104,15 +104,23 @@
                 UserService.enrollTraining(_id);
             };
         })
+        
+        .controller('TrainingDetailController', function($scope, $filter,$rootScope, $routeParams, TrainingService, UserService) {
+            if ($routeParams._id) {            
+                $scope.training = TrainingService.getTraining($routeParams._id);
+                $scope.userList = $scope.training.userList;
+            }
+            
+        })
 
         .controller('AssignmentController', function ($scope, $filter, TrainingService, UserService) {
             $scope.trainings = TrainingService.getAllTrainings();
             $scope.users = UserService.getAllUsers();
 
             $scope.predicate = function (rows) {
-                return rows['name', 'userName'];
-            };
-
+                return rows['name'];
+            }
+            
             $scope.getUserLiked = function (user) {
                 return $filter('filter')(user.trainingList, {status: 'interested'}).length;
             };
@@ -132,7 +140,7 @@
                     var tr = _.find(user.trainingList, {_id: training._id});
                     if (!tr) {
                         user.trainingList.push(training);
-                    }
+            }
                     UserService.updateUser(user);
                 }
             };
@@ -142,7 +150,7 @@
                     _.remove(user.trainingList, {_id: training._id});
                     UserService.updateUser(user);
                     TrainingService.unassignTrainingToUser(training._id, user);
-                }
+            }
             };
         });
 })();

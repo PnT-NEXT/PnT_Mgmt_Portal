@@ -1,0 +1,41 @@
+<style>
+    .user-container {
+        min-height: 80px;
+    }
+    .user-sort {
+        margin-right: 15px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12"><h3>Training Detail</h3></div>
+</div>
+<div class="row">
+    <div class="col-lg-5">
+        <cource-card cource="training" on-enroll="enroll(training._id)"></cource-card>
+    </div>
+    <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+        <div class="row">
+            <div class="col-lg-12 form-inline">
+                <div class="pull-left"><span class="lead">{{userList.length}}</span> users have joined this training.</div>
+                <div class="pull-right user-sort">sort by name:
+                    <select class="form-control" ng-model="condition">
+                        <option value=""></option>
+                        <option value="userName">name</option>
+                        <option value="NTAccount">NTAccount</option>
+                    </select>
+                </div>
+            </div>
+            <hr />
+            <div ng-repeat='ur in userList | orderBy: condition' class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <span class="user-container">
+                    <user-avatar user-id="{{ur._id}}"  show-name="true" user-name="{{ur.userName}}" px-size="50"></user-avatar>
+                </span>
+            </div>   
+        </div>                 
+    </div>
+</div>
+<div class="row">
+    
+</div>
+                
