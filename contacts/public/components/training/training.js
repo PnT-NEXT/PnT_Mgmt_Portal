@@ -109,8 +109,47 @@
             if ($routeParams._id) {            
                 $scope.training = TrainingService.getTraining($routeParams._id);
                 $scope.userList = $scope.training.userList;
+            }            
+            $scope.users = UserService.getAllUsers();
+            $scope.unassignedUsers = [];
+            for(var i = 0;i < $scope.users.length;i++) {
+                var flag = true;
+                for(var j = 0;j < $scope.userList.length;j++) {
+                    if($scope.users[i]._id === $scope.userList[j]._id) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if(flag === true) {
+                    $scope.unassignedUsers.push($scope.users[i]);
+                }
             }
             
+            $scope.onDropComplete = function (user, training) {
+                if (user && training) {
+                    TrainingService.assignTrainingToUser(training._id, user);
+                    for(var i = 0;i < $scope.unassignedUsers.length; i++) {
+                        if($scope.unassignedUsers[i]._id === user._id) {
+                            $scope.unassignedUsers.splice(i,1);break;
+                        }
+                    }
+                    var tr = _.find(user.trainingList, {_id: training._id});
+                    if (!tr) {
+                        user.trainingList.push(training);
+                    }
+                    UserService.updateUser(user);
+                    
+                    
+                }
+            };
+            $scope.onDeleteUser = function (user, training) {
+                if (user && training) {
+                    _.remove(user.trainingList, {_id: training._id});
+                    UserService.updateUser(user);
+                    TrainingService.unassignTrainingToUser(training._id, user);
+                }
+                $scope.unassignedUsers.push(user);
+            };
         })
 
         .controller('AssignmentController', function ($scope, $filter, TrainingService, UserService) {

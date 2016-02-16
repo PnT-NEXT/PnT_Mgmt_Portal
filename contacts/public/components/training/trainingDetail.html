@@ -2,23 +2,31 @@
     .user-container {
         min-height: 80px;
     }
+    
     .user-sort {
         margin-right: 15px;
+    }
+    .avatar-container {
+        cursor: move;
+    }
+    [ng-drop="true"].drag-enter {
+        border:1px dashed #00b388 !important;
     }
 </style>
 
 <div class="row">
-    <div class="col-lg-12"><h3>Training Detail</h3></div>
+    <div class="col-lg-12">
+        <h3>Training Detail</h3></div>
 </div>
 <div class="row">
-    <div class="col-lg-5">
+    <div class="col-lg-5" ng-drop="true" ng-drop-success="onDropComplete($data, training)">
         <cource-card cource="training" on-enroll="enroll(training._id)"></cource-card>
     </div>
     <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
-        <div class="row">
-            <div class="col-lg-12 form-inline">
+        <div class="row" ng-drop="true" ng-drop-success="onDropComplete($data, training)">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-inline">
                 <div class="pull-left"><span class="lead">{{userList.length}}</span> users have joined this training.</div>
-                <div class="pull-right user-sort">sort by name:
+                <div class="pull-right user-sort">sort by :
                     <select class="form-control" ng-model="condition">
                         <option value=""></option>
                         <option value="userName">name</option>
@@ -26,16 +34,25 @@
                     </select>
                 </div>
             </div>
-            <hr />
-            <div ng-repeat='ur in userList | orderBy: condition' class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <div ng-repeat='ur in userList | orderBy: condition' class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
                 <span class="user-container">
-                    <user-avatar user-id="{{ur._id}}"  show-name="true" user-name="{{ur.userName}}" px-size="50"></user-avatar>
+                    <user-avatar user-id="{{ur._id}}" can-delete="true" on-delete="onDeleteUser(ur,training)" user-name="{{ur.userName}}" px-size="50"></user-avatar>
                 </span>
-            </div>   
-        </div>                 
+            </div>
+        </div>
+        <div class="row" role="divider">
+            <hr />
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-inline">
+                <div class="pull-left"><span class="lead">{{unassignedUsers.length}}</span> users have not joined this training.</div>
+            </div>
+            <div ng-repeat='ur in unassignedUsers | orderBy: "userName"' class="col-lg-1 col-md-1 col-sm-1 col-xs-2" ng-drag="true"
+                 ng-drag-data="ur" ng-if="true">
+                <span class="user-container">
+            <user-avatar user-id="{{ur._id}}" user-name="{{ur.userName}}" px-size="50"></user-avatar>
+        </span>
+            </div>
+        </div>
     </div>
 </div>
-<div class="row">
-    
-</div>
-                
