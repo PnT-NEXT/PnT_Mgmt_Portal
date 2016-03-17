@@ -25,7 +25,7 @@ angular.module('PnT_Portal-widget')
                     $scope.pxSize = 50;
                 }
 
-                $scope.rndColor = randomColor({hue: 'blue'}); //'gray';
+                $scope.rndColor = randomColor({hue: 'blue', seed: $scope.userId.hashCode()}); //'gray';
 
                 var shortUserName = function (name) {
                     var nameSlices = name.split(/[ \(.,\-\)]+/).slice(0, 3);
