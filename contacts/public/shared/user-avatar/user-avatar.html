@@ -1,7 +1,7 @@
 <div class="avatar-item">
     <!--<button type="button" class="close" ng-click="isolatedDelete(userId)">×</button>-->
-    <div class="avatar-container" ng-style="{width:pxSize,height:pxSize,borderColor:rndColor}">
-        <span class="avatar-text" ng-style="{color:rndColor,fontSize:(pxSize/name.length)}">{{name}}</span>
+    <div class="avatar-container" ng-style="{width:pxSize,height:pxSize,backgroundColor:rndColor}">
+        <span class="avatar-text" ng-style="{fontSize:(pxSize/name.length)}">{{name}}</span>
     </div>
     <a ng-show="canDelete" class="btn btn-xs btn-link glyphicon glyphicon-remove" ng-click="isolatedDelete(userId)"/>
 </div>
