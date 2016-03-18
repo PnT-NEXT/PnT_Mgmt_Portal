@@ -18,7 +18,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-mongo": "tasklist /nh /fi \"imagename eq mongod.exe\" | find /i \"mongod.exe\" > nul || (start mongod.exe)",
+    "start-mongo": "tasklist /nh /fi \"imagename eq mongod.exe\" | find /i \"mongod.exe\" > nul || (start /min mongod.exe)",
     "start": "npm run start-mongo && node server.js"
   },
   "repository": {
