@@ -58,13 +58,13 @@
             $scope.sort = function (field) {
                 $scope.sort.field = field;
                 $scope.sort.order = !$scope.sort.order;
-            }
+            };
 
             // orderby contains space, workaroud;
             // refer to: http://stackoverflow.com/questions/23420509/angularjs-orderby-with-space-in-property-name.
             $scope.predicate = function (rows) {
                 return rows[$scope.sort.field];
-            }
+            };
 
             $scope.view = function (id) {
                 $location.url(appSetting.virtualDir + '/training/' + id);
@@ -96,7 +96,7 @@
                 var _ids = [];
                 angular.forEach($scope.cources, function (c) {
                     _ids.push(c._id);
-                })
+                });
                 UserService.enrollTraining(_ids);
             };
 
@@ -104,51 +104,45 @@
                 UserService.enrollTraining(_id);
             };
         })
-        
-        .controller('TrainingDetailController', function($scope, $filter,$rootScope, $routeParams, TrainingService, UserService) {
-            if ($routeParams._id) {            
+
+        .controller('TrainingDetailController', function ($scope, $filter, $rootScope, $routeParams, TrainingService, UserService) {
+            if ($routeParams._id) {
                 $scope.training = TrainingService.getTraining($routeParams._id);
                 $scope.userList = $scope.training.userList;
-            }            
+            }
             $scope.users = UserService.getAllUsers();
             $scope.unassignedUsers = [];
-            for(var i = 0;i < $scope.users.length;i++) {
+            for (var i = 0; i < $scope.users.length; i++) {
                 var flag = true;
-                for(var j = 0;j < $scope.userList.length;j++) {
-                    if($scope.users[i]._id === $scope.userList[j]._id) {
+                for (var j = 0; j < $scope.userList.length; j++) {
+                    if ($scope.users[i]._id === $scope.userList[j]._id) {
                         flag = false;
                         break;
                     }
                 }
-                if(flag === true) {
+                if (flag === true) {
                     $scope.unassignedUsers.push($scope.users[i]);
                 }
             }
-            
+
             $scope.onDropComplete = function (user, training) {
                 if (user && training) {
-                    TrainingService.assignTrainingToUser(training._id, user);
-                    for(var i = 0;i < $scope.unassignedUsers.length; i++) {
-                        if($scope.unassignedUsers[i]._id === user._id) {
-                            $scope.unassignedUsers.splice(i,1);break;
-                        }
-                    }
-                    var tr = _.find(user.trainingList, {_id: training._id});
-                    if (!tr) {
-                        user.trainingList.push(training);
-                    }
-                    UserService.updateUser(user);
-                    
-                    
+                    UserService.assignTraining(user._id, training._id);
+                    TrainingService.assignTrainingToUser(training._id, user._id);
+                    _.remove($scope.unassignedUsers, {_id: user._id});
                 }
             };
+
             $scope.onDeleteUser = function (user, training) {
                 if (user && training) {
-                    _.remove(user.trainingList, {_id: training._id});
-                    UserService.updateUser(user);
+                    UserService.unassignTraining(user._id, training._id);
                     TrainingService.unassignTrainingToUser(training._id, user);
+
+                    _.remove($scope.userList, {_id: user._id});
+                    if (!_.find($scope.unassignedUsers, {_id: user._id})) {
+                        $scope.unassignedUsers.push(user);
+                    }
                 }
-                $scope.unassignedUsers.push(user);
             };
         })
 
@@ -158,8 +152,8 @@
 
             $scope.predicate = function (rows) {
                 return rows['name'];
-            }
-            
+            };
+
             $scope.getUserLiked = function (user) {
                 return $filter('filter')(user.trainingList, {status: 'interested'}).length;
             };
@@ -174,22 +168,16 @@
 
             $scope.onDropComplete = function (user, training) {
                 if (user && training) {
-                    TrainingService.assignTrainingToUser(training._id, user);
-
-                    var tr = _.find(user.trainingList, {_id: training._id});
-                    if (!tr) {
-                        user.trainingList.push(training);
-            }
-                    UserService.updateUser(user);
+                    UserService.assignTraining(user._id, training._id);
+                    TrainingService.assignTrainingToUser(training._id, user._id);
                 }
             };
 
-            $scope.onDeleteUser = function (user, training) {
-                if (user && training) {
-                    _.remove(user.trainingList, {_id: training._id});
-                    UserService.updateUser(user);
-                    TrainingService.unassignTrainingToUser(training._id, user);
-            }
+            $scope.onDeleteUser = function (userId, trainingId) {
+                if (userId && trainingId) {
+                    UserService.unassignTraining(userId, trainingId);
+                    TrainingService.unassignTrainingToUser(trainingId, userId);
+                }
             };
         });
 })();

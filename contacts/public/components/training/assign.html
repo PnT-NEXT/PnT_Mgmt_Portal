@@ -91,7 +91,7 @@
                 <li ng-repeat='ur in tr.userList' class="tr-user" ng-show="$index<=5">
                     <div class="tr-user-avatar">
                         <user-avatar user-id="{{ur._id}}" user-name="{{ur.userName}}" px-size="50" can-delete="true"
-                                     on-delete="onDeleteUser(ur,tr)"></user-avatar>
+                                     on-delete="onDeleteUser(ur._id,tr._id)"></user-avatar>
                     </div>
                 </li>
                 <span ng-show="tr.userList.length>6">
@@ -113,7 +113,7 @@
             </div>
 
             <p class="tr-drag-hide">
-                <h5><a href="/user/detail?_id={{ur._id}}" target="_blank">{{ur.userName}}</a></h5>
+            <h5><a href="/user/detail?_id={{ur._id}}" target="_blank">{{ur.userName}}</a></h5>
             </p>
 
             <p class="tr-drag-hide">
