@@ -35,6 +35,7 @@ header .userinfo {
     text-align: right;
     /*margin-top: 16px;*/
     text-transform: uppercase;
+    padding: 5px;
 }
 
 footer[role='footer'] {

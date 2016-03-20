@@ -29,7 +29,7 @@
                             <li><a href="/training">Quarter Training Pool</a></li>
                             <li><a href="/training/cart">Reserved Training</a></li>
                             <li class="divider"></li>
-                            <li><a href="/training/upload">Upload Quarter Training</a></li>                            
+                            <li><a href="/training/upload">Upload Quarter Training</a></li>
                             <li class="divider"></li>
                             <li><a href="/user/detail?_id=569f93a45cf3c72036982f40">User Detail</a></li>
                             <li class="divider"></li>
@@ -59,12 +59,12 @@
                 <!--end of menu items-->
 
                 <!--searchbox-->
-                <div class="clearfix header-search">
-                    <div class="col-lg-4 right-input-addon">
-                        <i class="glyphicon glyphicon-search"></i>
-                        <input type="search" class="form-control" placeholder="Search"/>
-                    </div>
-                </div>
+                <!--<div class="header-search">-->
+                <!--<div class="col-lg-4 right-input-addon">-->
+                <!--<i class="glyphicon glyphicon-search"></i>-->
+                <!--<input type="search" class="form-control" placeholder="Search"/>-->
+                <!--</div>-->
+                <!--</div>-->
                 <!--end of searchbox-->
 
                 <!--<span class="btn btn-link">-->
@@ -73,8 +73,12 @@
                 <!--</span>-->
 
                 <!--user info-->
+                <div class="navbar-right">
+                    <user-avatar user-id="{{user._id}}" user-name="{{user.userName}}" px-size="30"></user-avatar>
+                </div>
                 <div class="userinfo navbar-right">
-                    <strong ng-show="user.userName||user.NTAccount">{{user.userName}} ( {{user.NTAccount}} )</strong>
+                    <div><strong ng-show="user.userName">{{user.userName}}</strong></div>
+                    <div><em ng-show="user.NTAccount">{{user.NTAccount}}</em></div>
                 </div>
                 <!--end of user info-->
             </div>
