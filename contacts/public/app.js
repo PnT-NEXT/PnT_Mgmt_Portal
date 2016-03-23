@@ -29,6 +29,10 @@ angular.module('PnT_Portal', ['ngRoute', 'ngResource', 'ngMessages', 'ngFileUplo
                 controller: 'AssignmentController',
                 templateUrl: 'components/training/assign.html'
             })
+            .when(appSetting.virtualDir + '/training/list2', {
+                controller: 'TrainingList2Controller',
+                templateUrl: 'components/training/list2.html'
+            })
             .when(appSetting.virtualDir + '/user/detail', {
                 controller: 'UserDetailController',
                 templateUrl: 'components/user/detail.html'

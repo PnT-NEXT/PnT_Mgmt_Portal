@@ -1,8 +1,8 @@
 var config = {
 	virtualDir: '',
-	authUser: 'xiaofan',
-	userRegion: 'TestRegion',
-	userName: 'Xiao.Fang',
+	authUser: 'asiapacific\\xiaofan',
+	userRegion: 'ASIAPACIFIC',
+	userName: 'Xiao, Fang',
 	email: 'xiaofang@test.com'
 }
 

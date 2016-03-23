@@ -179,5 +179,40 @@
                     TrainingService.unassignTrainingToUser(trainingId, userId);
                 }
             };
+        })
+
+        .controller('TrainingList2Controller', function ($scope, TrainingService, UserService) {
+            $scope.trainings = TrainingService.getAllTrainings();
+            $scope.users = UserService.getAllUsers();
+
+            $scope.predicate = function (rows) {
+                return rows['name'];
+            };
+
+            $scope.getUserLiked = function (user) {
+                return $filter('filter')(user.trainingList, {status: 'interested'}).length;
+            };
+
+            $scope.getUserTaken = function (user) {
+                return $filter('filter')(user.trainingList, {status: 'reserved'}).length;
+            };
+
+            $scope.onDragComplete = function (data, evt) {
+                //TrainingService.assignTrainingToUser()
+            };
+
+            $scope.onDropComplete = function (user, training) {
+                if (user && training) {
+                    UserService.assignTraining(user._id, training._id);
+                    TrainingService.assignTrainingToUser(training._id, user._id);
+                }
+            };
+
+            $scope.onDeleteUser = function (userId, trainingId) {
+                if (userId && trainingId) {
+                    UserService.unassignTraining(userId, trainingId);
+                    TrainingService.unassignTrainingToUser(trainingId, userId);
+                }
+            };
         });
 })();

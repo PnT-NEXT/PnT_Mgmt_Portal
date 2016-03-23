@@ -1,0 +1,125 @@
+<style>
+    .tr-item {
+        /*width: 260px;*/
+        margin: 5px 0px;
+        padding: 5px 15px;
+        background: white !important;
+        -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+        /*display: inline-block;*/
+    }
+
+    .tr-item .tr-tag {
+        background: rgba(68, 68, 68, .1);
+        border-radius: 5px;
+        padding: 0px 5px;
+        margin-right: 5px;
+        display: inline-block;
+    }
+
+    .tr-item .tr-info .tr-title {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        font-size: 18px;
+        /*font-weight: bold;*/
+        color: #444444 !important;
+    }
+
+    .tr-item .tr-user-row {
+        display: flex;
+        padding-left: 0;
+    }
+
+    .tr-item .tr-user-avatar {
+        float: right;
+        margin-top: 6px;
+        margin-right: 6px;
+    }
+
+    [ng-drop].drag-enter {
+        border: solid 1px #2196f3;
+    }
+
+    [ng-drag].drag-over {
+        border: solid 1px #2196f3;
+    }
+
+    [ng-drag].dragging {
+        /*opacity: 0.5;*/
+        position: relative;
+    }
+
+    #userSection [ng-drag].dragging .tr-drag-hide {
+        /* display: none;*/
+        opacity: 0.5;
+    }
+
+    .tr-item .tr-user {
+        height: 50px;
+        display: inline-block;
+        width: 50px;
+        /*background-color: #6ad2cf;*/
+        margin: 5px;
+    }
+
+    .tr-item .tr-info p, .tr-item .tr-info small, .tr-item .tr-info span {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+    }
+
+    .tr-item .tr-actions {
+        position: absolute;
+        bottom: 15px;
+        text-align: right;
+        right: 30px;
+    }
+
+    .tr-item .tr-actions .btn {
+        -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+        box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.4);
+        margin-left: 5px;
+    }
+
+</style>
+
+<div>
+    <div id="trainingSection">
+        <input type="search" placeholder="search training" class="form-control" ng-model="trainingQuery"/>
+
+        <div ng-repeat='tr in trainings | filter : trainingQuery | orderBy: predicate'
+             class="tr-item row"
+             ng-drop="true" ng-drop-success="onDropComplete($data, tr)">
+            <div>
+                <h4 class="tr-title">
+                    <span ng-href="/training/detail?_id={{tr._id}}">{{tr.name}}</span>
+                    <span>
+                    <a ng-href="/training/detail?_id={{tr._id}}" target="_blank"
+                       class="btn btn-xs glyphicon glyphicon-resize-full"></a>
+                    </span>
+                </h4>
+
+                <!--<span class="tr-info">{{tr.courseId | uppercase }} | {{tr.programType}} | {{tr.instructor}}</span>-->
+                <span class="tr-tag">{{tr.courseId | uppercase }}</span>
+                <span class="tr-tag">{{tr.programType}} </span>
+                <span class="tr-tag"> {{tr.instructor}}</span>
+            </div>
+            <ul class="tr-user-row">
+                <li ng-repeat='ur in tr.userList' class="tr-user">
+                    <div class="tr-user-avatar">
+                        <user-avatar user-id="{{ur._id}}" user-name="{{ur.userName}}" px-size="50"
+                                     on-delete="onDeleteUser(ur._id,tr._id)"></user-avatar>
+                    </div>
+                </li>
+
+                <!--<span ng-show="tr.userList.length>6">-->
+                <!--<a ng-href="/training/detail?_id={{tr._id}}" target="_blank"-->
+                <!--class="btn btn-sm btn-default glyphicon glyphicon-resize-full"></a>-->
+                <!--</span>-->
+            </ul>
+        </div>
+    </div>
+</div>

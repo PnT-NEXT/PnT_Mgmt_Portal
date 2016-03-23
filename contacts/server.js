@@ -1,6 +1,6 @@
 var util = require('./helper/util');
 util.mkdir('uploads/');
-process.env.NODE_ENV='dev';
+process.env.NODE_ENV = 'dev';
 var express = require('express'),
     app = express(),
     config = require('./config'),
@@ -25,7 +25,7 @@ var express = require('express'),
     });
 
 app
-    // set virtual directory for developer environment
+// set virtual directory for developer environment
     .use(express.static('public'))
     .use('/lib', express.static('bower_components'))
     .post(config.virtualDir + '/api/training/file', upload.single('file'), function (req, res, next) {
@@ -54,6 +54,9 @@ app
         res.sendfile('public/main.html');
     })
     .get(config.virtualDir + '/training/assign', function (req, res) {
+        res.sendfile('public/main.html');
+    })
+    .get(config.virtualDir + '/training/list2', function (req, res) {
         res.sendfile('public/main.html');
     })
     .get(config.virtualDir + '/user/detail', function (req, res) {
