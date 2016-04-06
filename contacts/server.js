@@ -8,6 +8,7 @@ var express = require('express'),
     initialRoute = require('./route/initialRoute'),
     trainingRoute = require('./route/trainingRoute'),
     userRoute = require('./route/userRoute'),
+    reportRoute = require('./route/reportRoute'),
 
 // upload file variables starts
     multer = require('multer'),
@@ -28,7 +29,7 @@ app
 // set virtual directory for developer environment
     .use(express.static('public'))
     .use('/lib', express.static('bower_components'))
-    .post(config.virtualDir + '/api/training/file', upload.single('file'), function (req, res, next) {
+    .post('/api/training/file/upload|updateStatus', upload.single('file'), function (req, res, next) {
         next();
     })
 
@@ -36,6 +37,7 @@ app
     .use(config.virtualDir + '/api/init', initialRoute)
     .use(config.virtualDir + '/api/training', trainingRoute)
     .use(config.virtualDir + '/api/user', userRoute)
+    .use(config.virtualDir + '/api/report', reportRoute)
 
     // return main page for SPA, this is not correct for all url return main page, there is a 404 error, only catch the main url
     .get(config.virtualDir + '/contacts', function (req, res) {

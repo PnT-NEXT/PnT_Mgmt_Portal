@@ -1,14 +1,174 @@
+'use strict';
 var express       = require('express'),
     router        = express.Router(),
     bodyParser    = require('body-parser'),
+    fs            = require('fs'),
     _             = require('lodash'),
     excel         = require('xlsx'),
     model         = require('../model'),
-    fs            = require('fs'),
-    util          = require('../helper/util');
+    util          = require('../helper/util'),
+    logger        = require('../helper/logger'),
+    q             = require('q');
+
+var COL_TRAINING_TITLE = 'Course Title';
+var COL_COMPLETE_STATUS = 'Completion Status';
+var COL_PERSION_NAME = 'Person Full Name';
+var COL_PERSION_EMAIL = 'Person E-mail';
+var COL_PERSION_EID = 'Person Person No';
+var COL_PERSION_STATUS = 'Person Status';
+var COL_PERSION_EMPLOYEE_TYPE = 'Person Employee Type';
+var COL_PERSION_TYPE = 'Person Type';
+var COL_CLASS_START_DATE = 'Class Start Date';
+var COL_CLASS_COMPLETE_DATE = 'Completed Courses (Transcript) Ended/Completed On Date';
+var COL_COURSE_ID = 'Course Course ID';
+var COL_COURSE_PROGRAM_TYPE = 'Course Program';
+var COL_CLASS_DELIVERY_NAME = 'Class Delivery Name';
+var COL_CLASS_ID = 'Class ID';
+var COL_CLASS_DURATION = 'Completed Courses (Transcript) Duration (HH:MM)';
+var COL_IS_HOC_TRANSCRIPT = 'Is ad hoc transcript';
+var COL_HEAD_COUNT = 'Head Count';
 
 router
-    .route('/file')
+    .route('/file/updateStatus')
+    .post(function (req, res) {
+        if (req.file.path) {
+            var trainingCollection = [];
+            var userCollection = [];
+            var training = { classList: [] };
+            var user = {};
+            var trainingClass = {};
+            var workbook = excel.readFile(req.file.path);
+            workbook.SheetNames.forEach(function (value, index) {
+                if (value === 'list') {
+                    var recordList = excel.utils.sheet_to_json(workbook.Sheets[value]);
+                    console.log('total record count: ' + Object.keys(recordList).length);
+                    var record = {};
+                    var trainingStatus = '';
+                    var trainingClass = {};
+                    for (var i = 0; i < Object.keys(recordList).length; i+=1) {
+                        record = recordList[i];
+                        if (record[COL_TRAINING_TITLE]) {
+                            // console.log('This is a training: ' + record[COL_TRAINING_TITLE]);
+                            if (training.title) {                                
+                                trainingCollection.push(training);
+                                training = { title: record[COL_TRAINING_TITLE], classList: [] };
+                            } else {
+                                training.title = record[COL_TRAINING_TITLE];
+                            }
+                        } else if (record[COL_COMPLETE_STATUS]) {
+                            // console.log('This is a training status: ' + record[COL_COMPLETE_STATUS]);
+                            if (trainingStatus !== record[COL_COMPLETE_STATUS]) {
+                                trainingStatus = record[COL_COMPLETE_STATUS];
+                            }
+                        } else if (record[COL_PERSION_EMAIL] !== '') {
+                            // console.log('This is a class taken by nobody with class row ' + i);
+                            trainingClass = { status: trainingStatus };
+                            if (record[COL_CLASS_START_DATE]) {
+                                trainingClass.startDate = new Date(record[COL_CLASS_START_DATE]);
+                            }
+                            if (record[COL_CLASS_COMPLETE_DATE]) {
+                                trainingClass.completeDate = new Date(record[COL_CLASS_COMPLETE_DATE]);
+                            }
+                            if (record[COL_CLASS_DELIVERY_NAME]) {
+                                trainingClass.delivery = record[COL_CLASS_DELIVERY_NAME];
+                            }
+                            if (record[COL_CLASS_ID]) {
+                                trainingClass.classID = record[COL_CLASS_ID];
+                            }
+                            if (record[COL_IS_HOC_TRANSCRIPT]) {
+                                trainingClass.isHOC = record[COL_IS_HOC_TRANSCRIPT];
+                            }
+                            if (record[COL_HEAD_COUNT]) {
+                                trainingClass.headCount = record[COL_HEAD_COUNT];
+                            }
+                            if (record[COL_PERSION_EMAIL]) {
+                                trainingClass.userEmail = record[COL_PERSION_EMAIL];
+                                training.classList.push(trainingClass); // TODO: ask aaron how to understand the duration
+                            } else {
+                                logger.info();
+                            }
+
+                            if (!_.find(userCollection, {'employeeID': record[COL_PERSION_EID]}) && record[COL_PERSION_EID]) {
+                                user = {};
+                                if (record[COL_PERSION_NAME]) {
+                                    user.userName = record[COL_PERSION_NAME];
+                                }
+                                if (record[COL_PERSION_EMAIL]) {
+                                    user.email = record[COL_PERSION_EMAIL];
+                                }
+                                if (record[COL_PERSION_EID]) {
+                                    user.employeeID = record[COL_PERSION_EID];
+                                }
+                                if (record[COL_PERSION_TYPE]) {
+                                    user.type = record[COL_PERSION_TYPE];
+                                }
+                                if (record[COL_PERSION_EMPLOYEE_TYPE]) {
+                                    user.employeeType = record[COL_PERSION_EMPLOYEE_TYPE];
+                                }
+                                if (record[COL_PERSION_STATUS]) {
+                                    user.status = record[COL_PERSION_EMPLOYEE_TYPE];
+                                }
+
+                                userCollection.push(user);
+                            }
+                        }
+                    }
+
+                    if (training.title) {
+                        trainingCollection.push(training);
+                    }
+
+                    var trainingCount = 0;
+
+                    q
+                    .nfcall(model.trainingClass.insert, trainingCollection)
+                    .then(function(docs) {
+                        if (docs) {
+                            trainingCount = docs.length;
+                            console.log('find all users here');
+                            return q.nfcall(model.users.findAll);
+                        }
+                    })
+                    .then(function (users) {
+                        var tempUser = {};
+                        var promiseArray = [];
+                        _.each(userCollection, function (user) {
+                            if (user.email) {
+                                tempUser = _.find(users, {email: user.email});
+                                if (tempUser) {
+                                    tempUser.userName = user.userName;
+                                    tempUser.employeeID = user.employeeID;
+                                    tempUser.type = user.type;
+                                    tempUser.status = user.status;
+                                    tempUser.employeeType = user.employeeType;
+                                    promiseArray.push(q.nfcall(model.users.update, tempUser));
+                                } else {
+                                    promiseArray.push(q.nfcall(model.users.insert, user));
+                                }
+                            }
+                        });
+                        
+                        console.log(promiseArray.length);
+                        return q.all(promiseArray);
+                    })
+                    .catch(function (err) {
+                        logger.error('error happens when insert training class collection', err);
+                        throw err;
+                    })
+                    .done(function () {
+                        fs.unlink(req.file.path);
+                        res.json({
+                            success: true,
+                            message: 'successfully upload ' + trainingCount + ' courses'
+                        });
+                    });
+                }
+            });
+        }
+    });
+
+router
+    .route('/file/upload')
     .post(function (req, res) {
         if (req.file.path) {
             var trainingCollection = [];
