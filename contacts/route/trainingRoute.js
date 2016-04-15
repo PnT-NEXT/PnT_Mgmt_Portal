@@ -10,6 +10,8 @@ var express       = require('express'),
     logger        = require('../helper/logger'),
     q             = require('q');
 
+var DEFAULT_TRAINING_PROGRAM_TYPE = 'Professional Skills/Other';
+
 var COL_TRAINING_TITLE = 'Course Title';
 var COL_COMPLETE_STATUS = 'Completion Status';
 var COL_PERSION_NAME = 'Person Full Name';
@@ -61,7 +63,16 @@ router
                                 trainingStatus = record[COL_COMPLETE_STATUS];
                             }
                         } else if (record[COL_PERSION_EMAIL] !== '') {
-                            // console.log('This is a class taken by nobody with class row ' + i);
+                            if (record[COL_COURSE_ID]) {
+                                training.trainingId = record[COL_COURSE_ID];
+                            }
+                            if (record[COL_COURSE_PROGRAM_TYPE]) {
+                                training.programType = record[COL_COURSE_PROGRAM_TYPE];
+                            } else {
+                                training.programType = DEFAULT_TRAINING_PROGRAM_TYPE;
+                            }
+
+
                             trainingClass = { status: trainingStatus };
                             if (record[COL_CLASS_START_DATE]) {
                                 trainingClass.startDate = new Date(record[COL_CLASS_START_DATE]);
@@ -141,7 +152,7 @@ router
                                     tempUser.type = user.type;
                                     tempUser.status = user.status;
                                     tempUser.employeeType = user.employeeType;
-                                    promiseArray.push(q.nfcall(model.users.update, tempUser));
+                                    promiseArray.push(q.nfcall(model.users.update, { _id: tempUser._id }, tempUser));
                                 } else {
                                     promiseArray.push(q.nfcall(model.users.insert, user));
                                 }
