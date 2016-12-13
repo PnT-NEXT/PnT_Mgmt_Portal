@@ -3,16 +3,13 @@
   "description": "This is a demo project for nodejs",
   "main": "server.js",
   "authors": [
-    "Aaron.Luo"
+    "Carson"
   ],
   "license": "ISC",
   "keywords": [
     "InS_CourseSolution"
   ],
   "homepage": "https://github.com/PnT-NEXT/PnT_Mgmt_Portal",
-  "moduleType": [
-    "globals"
-  ],
   "private": true,
   "ignore": [
     "**/.*",
@@ -20,6 +17,10 @@
     "bower_components",
     "test",
     "tests"
+  ],
+  "moduleType": [
+    "globals",
+    "es6"
   ],
   "dependencies": {
     "angular-messages": "ng-messages#*",

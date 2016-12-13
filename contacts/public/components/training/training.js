@@ -9,7 +9,7 @@
             $scope.upload = function (file) {
                 file.upload = Upload.upload({
                     //url: 'http://localhost' + (appSetting.serverPort ? ':' + appSetting.serverPort : ':80') + appSetting.virtualDir + '/api/training/file/updateStatus',
-                    url: 'http://localhost' + (appSetting.serverPort ? ':' + appSetting.serverPort : ':80') + appSetting.virtualDir + '/api/training/file',
+                    url: 'http://localhost' + (appSetting.serverPort ? ':' + appSetting.serverPort : ':80') + appSetting.virtualDir + '/api/training/file/upload',
                     data: {
                         file: file
                     }

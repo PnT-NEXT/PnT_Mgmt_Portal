@@ -1,18 +1,18 @@
 /*add user-defined modules here as dependency here for app.*/
 
-angular.module('PnT_Portal', ['ngRoute', 'ngResource', 'ngMessages', 'ngFileUpload', 'PnT_Portal-contact', 'PnT_Portal-training', 'PnT_Portal-user'])
+angular.module('PnT_Portal', ['ngRoute', 'ngResource', 'ngMessages', 'ngFileUpload', 'PnT_Portal-training', 'PnT_Portal-user'])
     .constant('appSetting', {virtualDir: '', serverPort: '3000'})
     //.constant('appSetting', { virtualDir: '/node/contacts/server.js', serverPort: '80' }) // deploy IIS config
     .config(function ($routeProvider, $locationProvider, appSetting) {
         $routeProvider
-            .when(appSetting.virtualDir + '/contacts', {
-                controller: 'ListController',
-                templateUrl: 'components/contact/list.html'
-            })
-            .when(appSetting.virtualDir + '/contact/new', {
-                controller: 'NewController',
-                templateUrl: 'components/contact/new.html'
-            })
+            //.when(appSetting.virtualDir + '/contacts', {
+            //    controller: 'ListController',
+            //    templateUrl: 'components/contact/list.html'
+            //})
+            //.when(appSetting.virtualDir + '/contact/new', {
+            //    controller: 'NewController',
+            //    templateUrl: 'components/contact/new.html'
+            //})
             .when(appSetting.virtualDir + '/training', {
                 controller: 'TrainingsController',
                 templateUrl: 'components/training/list.html'

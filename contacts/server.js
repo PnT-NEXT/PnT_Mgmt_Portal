@@ -1,5 +1,5 @@
 var util = require('./helper/util');
-util.mkdir('uploads/');
+util.mkdir('./uploads/');
 process.env.NODE_ENV = 'dev';
 var express = require('express'),
     app = express(),
@@ -38,7 +38,7 @@ app
     .use(config.virtualDir + '/api/training', trainingRoute)
     .use(config.virtualDir + '/api/user', userRoute)
     .use(config.virtualDir + '/api/report', reportRoute)
-
+ 
     // return main page for SPA, this is not correct for all url return main page, there is a 404 error, only catch the main url
     .get(config.virtualDir + '/contacts', function (req, res) {
         res.sendfile('public/main.html');
@@ -85,7 +85,7 @@ if (process.env.NODE_ENV == 'dev') {
         if (err.status != 404) {
             logger.error('request error dev', err ? err.message : err, err ? err.stack : '');
         } else {
-            logger.error(req.originalUrl);
+            logger.error('request oirginal is : ' + req.originalUrl);
         }
         res.status(err.status || 500);
         res.json('error', {
@@ -93,21 +93,22 @@ if (process.env.NODE_ENV == 'dev') {
             error: err
         });
     });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function (err, req, res, next) {
-    logger.error('Prod Error Handler:');
-    logger.error(err.status);
-    if (err.status != 404) {
-        logger.error('request error dev', err ? err.message : err, err ? err.stack : '');
-    }
-    res.status(err.status || 500);
-    res.json('error', {
-        message: err.message,
-        error: {}
+} else {
+    // production error handler
+    // no stacktraces leaked to user
+    app.use(function (err, req, res, next) {
+        logger.error('Prod Error Handler:');
+        logger.error(err.status);
+        if (err.status != 404) {
+            logger.error('request error dev', err ? err.message : err, err ? err.stack : '');
+        }
+        res.status(err.status || 500);
+        res.json('error', {
+            message: err.message,
+            error: {}
+        });
     });
+}
+app.listen(process.env.PORT || 3000, function () {
+    console.log('server is running and listening on port ' + (process.env.PORT || 3000));
 });
-
-app.listen(process.env.PORT || 3000);

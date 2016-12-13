@@ -188,7 +188,7 @@ router
                 if (value === 'Course list') {
                     var previousRow = '1';
                     var training = {};
-                    for (z in workbook.Sheets[value]) {
+                    for (var z in workbook.Sheets[value]) {
                         if (z[0] !== '!') {
                             var row = z.match(/\d+/)[0];
                             if (row === '1') {
