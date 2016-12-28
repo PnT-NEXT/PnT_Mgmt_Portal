@@ -66,7 +66,11 @@ app
     })
     .get(config.virtualDir + '/training/detail', function (req, res) {
         res.sendfile('public/main.html');
+    })
+    .get(config.virtualDir + '/', function (req, res) {
+        res.sendfile('public/main.html');
     });
+
 
 /// catch 404 and forward to error handler
 app.use(function (req, res, next) {
